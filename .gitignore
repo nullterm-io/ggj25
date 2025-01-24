@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Ide specific ignores
+.vscode/
+.idea/
