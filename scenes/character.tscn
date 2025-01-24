@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://jjfutlp6idh"]
+
+[ext_resource type="Script" path="res://scripts/character/character_contoller.gd" id="1_me1tv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_1ufjm"]
+
+[node name="Character" type="Node3D"]
+script = ExtResource("1_me1tv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_1ufjm")
