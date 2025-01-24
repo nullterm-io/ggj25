@@ -1,0 +1,94 @@
+[gd_scene load_steps=15 format=3 uid="uid://br4drfrtg214t"]
+
+[ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dg04y7w1hivxh" path="res://addons/markdownlabel/markdownlabel.gd" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://ccj0i7dop1bxm" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_kek77"]
+[ext_resource type="Script" uid="uid://5jol0dl8p1eh" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_4c57u"]
+[ext_resource type="Script" uid="uid://cqyn0ifcurywd" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_efxa6"]
+[ext_resource type="Script" uid="uid://brk4auxrpli3h" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_dg77c"]
+[ext_resource type="Script" uid="uid://7taosnlfs16b" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_ycdy4"]
+[ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
+
+[sub_resource type="Resource" id="Resource_vivmo"]
+resource_local_to_scene = true
+script = ExtResource("3_kek77")
+font_size = 2.285
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_2cqfq"]
+resource_local_to_scene = true
+script = ExtResource("4_4c57u")
+font_size = 1.714
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_yaehf"]
+resource_local_to_scene = true
+script = ExtResource("5_efxa6")
+font_size = 1.428
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_074og"]
+resource_local_to_scene = true
+script = ExtResource("6_dg77c")
+font_size = 1.142
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_cegan"]
+resource_local_to_scene = true
+script = ExtResource("7_ycdy4")
+font_size = 1.0
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_82xsv"]
+resource_local_to_scene = true
+script = ExtResource("8_w48qg")
+font_size = 0.857
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[node name="IntroScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_ig7tw")
+
+[node name="ReadMe" type="RichTextLabel" parent="."]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+script = ExtResource("2_5vw27")
+h1 = SubResource("Resource_vivmo")
+h2 = SubResource("Resource_2cqfq")
+h3 = SubResource("Resource_yaehf")
+h4 = SubResource("Resource_074og")
+h5 = SubResource("Resource_cegan")
+h6 = SubResource("Resource_82xsv")
