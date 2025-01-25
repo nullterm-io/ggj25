@@ -107,7 +107,7 @@ func _update_position(_delta: float) -> void:
 		_pipe.position.z = 0
 
 func _on_obstacle_spawn_timer_timeout() -> void:
-	var delay_time = randf_range(2.0, 5.0)
+	var delay_time = randf_range(0.5, 2.0)
 
 	match _obstacle_types.pick_random():
 		Common.ObstacleType.ENEMY:

@@ -228,4 +228,3 @@ h5 = SubResource("Resource_cegan")
 h6 = SubResource("Resource_82xsv")
 
 [node name="GameOver" parent="." instance=ExtResource("19_cegan")]
-visible = true
