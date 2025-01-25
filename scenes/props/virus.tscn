@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://iijrfe2goswq"]
+
+[ext_resource type="PackedScene" uid="uid://dco1nt1gjkoqn" path="res://assets/3d/virus.glb" id="1_jx3b8"]
+
+[node name="virus" instance=ExtResource("1_jx3b8")]
+
+[node name="Sphere" parent="." index="0"]
+transform = Transform3D(3.31704, 3.39098, 1.58065, -2.38246, 3.54327, -2.60175, -2.88464, 0.972859, 3.96641, 0, 0, 0)
