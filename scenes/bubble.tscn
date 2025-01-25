@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="1_2vdav"]
 [ext_resource type="Script" uid="uid://cu0awl788gm58" path="res://scripts/character/character_contoller.gd" id="2_b4vvx"]
-[ext_resource type="Script" path="res://scripts/character/collide_reaction.gd" id="2_pm753"]
+[ext_resource type="Script" uid="uid://cwgd6mg4kfjhb" path="res://scripts/character/collide_reaction.gd" id="2_pm753"]
 
 [sub_resource type="Curve" id="Curve_b4vvx"]
 _data = [Vector2(0.03, 0), 0.0, 0.0, 0, 0, Vector2(0.265, 0.876405), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
