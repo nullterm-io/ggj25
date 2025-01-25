@@ -3,10 +3,10 @@
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="1_f1207"]
 [ext_resource type="PackedScene" uid="uid://cpddkxd6anpjt" path="res://scenes/props/crystal.tscn" id="3_bdfgm"]
 
-[sub_resource type="Sky" id="Sky_7rgt5"]
+[sub_resource type="Sky" id="Sky_sgwo3"]
 
 [sub_resource type="Environment" id="Environment_f1207"]
-sky = SubResource("Sky_7rgt5")
+sky = SubResource("Sky_sgwo3")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
@@ -41,7 +41,7 @@ dof_blur_near_transition = -1.0
 _data = [Vector2(0, 0.00497019), 0.0, 0.0, 0, 0, Vector2(0.498715, 0.993539), 0.0, 0.0, 0, 0, Vector2(0.997429, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_f1207"]
+[sub_resource type="CurveTexture" id="CurveTexture_rexay"]
 curve = SubResource("Curve_7rgt5")
 
 [sub_resource type="Curve" id="Curve_bdfgm"]
@@ -49,7 +49,7 @@ _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_isxh3"]
+[sub_resource type="CurveTexture" id="CurveTexture_tby5o"]
 curve = SubResource("Curve_bdfgm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_13ih7"]
@@ -65,19 +65,19 @@ initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.2
 scale_max = 0.75
-alpha_curve = SubResource("CurveTexture_f1207")
-hue_variation_curve = SubResource("CurveTexture_isxh3")
+alpha_curve = SubResource("CurveTexture_rexay")
+hue_variation_curve = SubResource("CurveTexture_tby5o")
 
 [sub_resource type="SphereMesh" id="SphereMesh_isxh3"]
 material = ExtResource("1_f1207")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1207"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xadti"]
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 0.85098, 0.74902, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_bdfgm"]
-material = SubResource("StandardMaterial3D_f1207")
+material = SubResource("StandardMaterial3D_xadti")
 radius = 0.2
 height = 0.4
 
