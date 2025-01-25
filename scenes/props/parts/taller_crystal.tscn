@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dhvh2vqnetfqc" path="res://assets/3d/taller_crystal.glb" id="1_os2f0"]
 [ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystals_material.tres" id="2_0gugi"]
-[ext_resource type="Script" path="res://scripts/dynamic_emisiveness.gd" id="3_0gugi"]
+[ext_resource type="Script" uid="uid://ggqb115giyhl" path="res://scripts/dynamic_emisiveness.gd" id="3_0gugi"]
 
 [node name="TallerCrystal" instance=ExtResource("1_os2f0")]
 
@@ -10,3 +10,6 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0679101, 2.29992, 0)
 surface_material_override/0 = ExtResource("2_0gugi")
 script = ExtResource("3_0gugi")
+minEmissionEnergy = 1000.0
+maxEmissionEnergy = 2500.0
+maxDistance = 30.0

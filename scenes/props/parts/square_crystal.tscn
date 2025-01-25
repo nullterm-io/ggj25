@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dopphmad60ww5" path="res://assets/3d/square_crystal.glb" id="1_44ffb"]
 [ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystals_material.tres" id="2_ksp4l"]
-[ext_resource type="Script" path="res://scripts/dynamic_emisiveness.gd" id="3_h4cfm"]
+[ext_resource type="Script" uid="uid://ggqb115giyhl" path="res://scripts/dynamic_emisiveness.gd" id="3_h4cfm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p0qrq"]
 radius = 0.880345
@@ -13,6 +13,9 @@ radius = 0.880345
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0474601, 0.708802, 0)
 surface_material_override/0 = ExtResource("2_ksp4l")
 script = ExtResource("3_h4cfm")
+minEmissionEnergy = 1000.0
+maxEmissionEnergy = 2500.0
+maxDistance = 30.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0601581, 0.708189, 0)

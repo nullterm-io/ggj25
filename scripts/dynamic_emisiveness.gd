@@ -14,7 +14,7 @@ func _process(_delta: float) -> void:
 		
 	var distToCamera = transform.origin.distance_to(camera.transform.origin)
 	var interpolationArg = (distToCamera - minDistance) / maxDistance
-	interpolationArg = clamp(interpolationArg, 0, 1)
+	interpolationArg = 1 - clamp(interpolationArg, 0, 1)
 	
 	var energy = minEmissionEnergy + interpolationCurve.sample_baked(interpolationArg) * maxEmissionEnergy
 	var material = get_active_material(0) as StandardMaterial3D

@@ -2,10 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://ch5r86l0ujhk3" path="res://assets/3d/tall_crystal.glb" id="1_o3ckt"]
 [ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystals_material.tres" id="2_pw8s6"]
-[ext_resource type="Script" path="res://scripts/dynamic_emisiveness.gd" id="3_rfcs5"]
+[ext_resource type="Script" uid="uid://ggqb115giyhl" path="res://scripts/dynamic_emisiveness.gd" id="3_rfcs5"]
 
 [node name="TallCrystal" instance=ExtResource("1_o3ckt")]
 
 [node name="TallCrystal2" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_pw8s6")
 script = ExtResource("3_rfcs5")
+minEmissionEnergy = 1000.0
+maxEmissionEnergy = 2500.0
+maxDistance = 30.0
