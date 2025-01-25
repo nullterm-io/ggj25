@@ -140,5 +140,3 @@ func _enemy_spawn() -> void:
 	enemy.setParent(segment)
 	enemy.resetPosition()
 	add_child(enemy)
-	
-	print("Enemy spawned with direction: ", dir)
