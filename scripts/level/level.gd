@@ -9,20 +9,18 @@ extends Node3D
 ## Movement speed along the path
 @export var pipe_speed = 2.5
 
-@onready var torus_template: CSGTorus3D = $CSGTorus3D
-@onready var camera_default: Camera3D = $Camera3D
+## Level section template node
+@export var section_template: Node3D
 
 var pipe_path: Path3D
 var pipe_segments: Array = []
 
 func _ready():
-	if not torus_template:
-		push_error("No CSGTorus3D found!")
-		return
+	assert(section_template)
 
 	# This is done only to make invisible the template torus in the scene
-	# It is used to generate new ones as an example one 
-	torus_template.visible = false
+	# It is used to generate new ones as an example one
+	section_template.visible = false
 
 	pipe_path = Path3D.new()
 	add_child(pipe_path)
@@ -39,7 +37,7 @@ func generate_offset_vector(z: float) -> Vector3:
 func generate_initial_pipe():
 	var curve = Curve3D.new()
 	var current_pos = Vector3.ZERO
-	var segment_distance = (torus_template.outer_radius - torus_template.inner_radius) * 0.05
+	var segment_distance = (section_template.outer_radius - section_template.inner_radius) * 0.05
 
 	for i in range(pipe_length):
 		var offset = self.generate_offset_vector(-i * segment_distance)
@@ -49,7 +47,7 @@ func generate_initial_pipe():
 	pipe_path.curve = curve
 
 	for i in range(pipe_length):
-		var torus = torus_template.duplicate()
+		var torus = section_template.duplicate()
 		torus.visible = true
 		add_child(torus)
 		pipe_segments.append(torus)
@@ -66,13 +64,13 @@ func extend_pipe():
 		curve.set_point_position(i, curve.get_point_position(i+1))
 
 	var last_point = curve.get_point_position(curve.point_count - 1)
-	var segment_distance = (torus_template.outer_radius - torus_template.inner_radius) * 0.05
+	var segment_distance = (section_template.outer_radius - section_template.inner_radius) * 0.05
 	var new_offset = self.generate_offset_vector(-segment_distance)
 	curve.add_point(last_point + new_offset)
 
 	curve.remove_point(0)
 
-	var torus = torus_template.duplicate()
+	var torus = section_template.duplicate()
 	torus.visible = true
 	add_child(torus)
 
