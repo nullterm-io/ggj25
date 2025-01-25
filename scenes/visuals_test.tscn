@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=3 uid="uid://4xri2pqto132"]
+[gd_scene load_steps=17 format=3 uid="uid://4xri2pqto132"]
 
-[ext_resource type="PackedScene" path="res://scenes/bubble.tscn" id="1_6rs05"]
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="1_f1207"]
 [ext_resource type="PackedScene" uid="uid://cpddkxd6anpjt" path="res://scenes/props/crystal.tscn" id="3_bdfgm"]
 
@@ -114,9 +113,6 @@ randomness = 1.0
 trail_lifetime = 0.57
 process_material = SubResource("ParticleProcessMaterial_13ih7")
 draw_pass_1 = SubResource("SphereMesh_bdfgm")
-
-[node name="Bubble" parent="." instance=ExtResource("1_6rs05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.924)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(9.17427, -2.65033, -2.96791, -1.45628, 4.70492, -8.70304, 3.70298, 8.41662, 3.93046, 2.62489, -19.2275, -53.6297)
