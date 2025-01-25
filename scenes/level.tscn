@@ -12,6 +12,7 @@ script = ExtResource("1_2q6dc")
 section_template = NodePath("CSGTorus3D")
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 inner_radius = 1.176
 outer_radius = 1.301

@@ -93,7 +93,10 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 
 shadow_enabled = true
 
 [node name="Level" parent="." instance=ExtResource("1_kek77")]
-pipe_length = 20
+pipe_length = 10
+angle_change_dist = 1
+max_offset = 0.25
+scroll_speed = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.297872)
