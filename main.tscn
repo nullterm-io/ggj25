@@ -186,7 +186,7 @@ script = ExtResource("3_dg77c")
 
 [node name="RedBloodParticles" type="GPUParticles3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.69468, 0, -23.4485)
-amount = 100
+amount = 300
 randomness = 1.0
 local_coords = true
 trail_lifetime = 0.57
