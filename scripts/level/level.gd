@@ -24,6 +24,7 @@ extends Node3D
 @onready var _inner_radius = section_template.inner_radius
 
 @onready var _segment_length = (section_template.outer_radius - section_template.inner_radius)
+@onready var _pipe = $Pipe
 
 var _elapsed_distance := 0.0
 var _angle := 0.0
@@ -36,7 +37,7 @@ func _ready():
 	assert(_segment_length > 0)
 
 	_segments.append(section_template.duplicate())
-	add_child(_segments[-1])
+	_pipe.add_child(_segments[-1])
 
 	_obstacles_gen = ObstaclesGen.new(_inner_radius, 5)
 	# This is done only to make invisible the template torus in the scene
@@ -80,7 +81,7 @@ func _update_sections(delta: float) -> void:
 		var offset = Vector3(cos(_angle), sin(_angle), 0) * _segment_length * max_offset
 		var segment_position = last_segment.position + Vector3.FORWARD * _segment_length + offset
 
-		add_child(segment)
+		_pipe.add_child(segment)
 		segment.position = segment_position
 		segment.visible = true
 		run_length += _segment_length
@@ -93,9 +94,10 @@ func _update_sections(delta: float) -> void:
 		segments_to_erase -= 1
 
 func _update_position(_delta: float) -> void:
-	var forward_segment = _segments[0]
-	global_position = -forward_segment.position
-	global_position.z = 0
+	var zero_segment_index = int(clearance_dist / _segment_length) + 1
+	if zero_segment_index < len(_segments):
+		_pipe.position = -_segments[zero_segment_index].position
+		_pipe.position.z = 0
 
 func _on_obstacle_spawn_timer_timeout() -> void:
 	var scene = obstacle_scenes.pick_random()
