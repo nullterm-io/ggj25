@@ -1,14 +1,14 @@
 class_name ObstaclesGen extends Node3D
 
-const RADIUS_OBSTACLE = 0.5
-const VISIBLE_DISTANCE = 10
-const OBSTACLE_RADIUS = 0.5
+const RADIUS_OBSTACLE := 0.5
+const VISIBLE_DISTANCE := 10
+const OBSTACLE_RADIUS := 0.5
 
-var _max_obstacles = 5
+var _max_obstacles := 5
 var _inner_radius: float
 var _randgen: RandomNumberGenerator
 
-var sorted_positions = PackedVector2Array()
+var sorted_positions := PackedVector2Array()
 
 func _init(r: float, max_obstacles: int):
 	_inner_radius = r
@@ -21,27 +21,27 @@ func _init(r: float, max_obstacles: int):
 func _calc_arc_length_between_points(a: Vector2, b: Vector2) -> float:
 	# NOTE: assume that a and b are points both on circle, meaning their magnitude
 	# equal to the radius of circle!
-	var angle = a.dot(b) / (_inner_radius * _inner_radius)
-	var theta = acos(angle)
+	var angle := a.dot(b) / (_inner_radius * _inner_radius)
+	var theta := acos(angle)
 	var arc_length = theta * _inner_radius
 	
 	return arc_length
 
 func _rand_point_on_circle() -> Vector2:
-	var genangle = _randgen.randf_range(0.0, 2.0 * PI)
-	var p_xy = Common.point_on_circle(_inner_radius, genangle)
+	var genangle := _randgen.randf_range(0.0, 2.0 * PI)
+	var p_xy := Common.point_on_circle(_inner_radius, genangle)
 
-	var p = Vector2(p_xy.x, p_xy.y)
+	var p := Vector2(p_xy.x, p_xy.y)
 	
 	return p
 	
 func _get_radius_from_point(p: Vector2, _r: float) -> float:
-	var angle: float = atan2(p.y, p.x)
-	var angle_offset: float = angle / _inner_radius
+	var angle := atan2(p.y, p.x)
+	var angle_offset := angle / _inner_radius
 	angle += angle_offset
 	
 	var radius_p: Vector2 = Common.point_on_circle(_inner_radius, angle)
-	var arc = _calc_arc_length_between_points(p, radius_p)
+	var arc := _calc_arc_length_between_points(p, radius_p)
 	
 	return arc
 	
@@ -55,18 +55,18 @@ func _test_positions(a: Vector2, b: Vector2) -> bool:
 	return true
 	
 func pop_gen_position() -> Vector2:
-	var count = sorted_positions.size()
+	var count := sorted_positions.size()
 	if count == 0:
 		return Vector2.ZERO
 		
-	var pos = sorted_positions[count - 1]
+	var pos := sorted_positions[count - 1]
 	sorted_positions.remove_at(count - 1)
 	
 	return pos
 	
 func try_gen_positions() -> void:
 	for i in range(0, _max_obstacles):
-		var gen_p: Vector2 = _rand_point_on_circle()
+		var gen_p := _rand_point_on_circle()
 		
 		if sorted_positions.is_empty():
 			sorted_positions.push_back(gen_p)
