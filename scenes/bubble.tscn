@@ -1,5 +1,195 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsyumcj4x1lsw"]
+[gd_scene load_steps=5 format=3 uid="uid://b322uyw1p565i"]
 
 [ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="1_2vdav"]
+[ext_resource type="Script" uid="uid://3mliuebgc4si" path="res://scripts/bubble.gd" id="2_pm753"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm753"]
+transparency = 1
+albedo_color = Color(0.686275, 1, 1, 0.184314)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pm753"]
+margin = 0.1
+radius = 0.25
 
 [node name="Bubble" instance=ExtResource("1_2vdav")]
+script = ExtResource("2_pm753")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+animate_physical_bones = false
+
+[node name="Bubble" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pm753")
+
+[node name="CoreBody" type="RigidBody3D" parent="." index="1"]
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CoreBody" index="0"]
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="BoneBody2" type="RigidBody3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23845" type="CollisionShape3D" parent="BoneBody2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23846" type="SliderJoint3D" parent="." index="3"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../BoneBody2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_001Body2" type="RigidBody3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.894426, 0.447216, 3.18335e-08)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23848" type="CollisionShape3D" parent="Bone_001Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0894426, -0.0447216, -3.18335e-09)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23849" type="SliderJoint3D" parent="." index="5"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_001Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_002Body2" type="RigidBody3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.723607, 0.447219, -0.525725)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23851" type="CollisionShape3D" parent="Bone_002Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0723607, -0.0447219, 0.0525725)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23852" type="SliderJoint3D" parent="." index="7"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_002Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_003Body2" type="RigidBody3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.723607, 0.44722, 0.525725)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23854" type="CollisionShape3D" parent="Bone_003Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0723607, -0.044722, -0.0525725)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23855" type="SliderJoint3D" parent="." index="9"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_003Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_004Body2" type="RigidBody3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.276388, 0.44722, -0.850649)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23857" type="CollisionShape3D" parent="Bone_004Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0276388, -0.044722, 0.0850649)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23858" type="SliderJoint3D" parent="." index="11"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_004Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_005Body2" type="RigidBody3D" parent="." index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.723607, -0.44722, -0.525725)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23860" type="CollisionShape3D" parent="Bone_005Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0723607, 0.044722, 0.0525725)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23861" type="SliderJoint3D" parent="." index="13"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_005Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_006Body2" type="RigidBody3D" parent="." index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276388, -0.44722, 0.850649)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23863" type="CollisionShape3D" parent="Bone_006Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0276388, 0.044722, -0.0850649)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23864" type="SliderJoint3D" parent="." index="15"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_006Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_008Body2" type="RigidBody3D" parent="." index="16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.276388, -0.44722, -0.850649)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23866" type="CollisionShape3D" parent="Bone_008Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0276388, 0.044722, 0.0850649)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23867" type="SliderJoint3D" parent="." index="17"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_008Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_009Body2" type="RigidBody3D" parent="." index="18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.276388, 0.44722, 0.850649)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23869" type="CollisionShape3D" parent="Bone_009Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0276388, -0.044722, -0.0850649)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23870" type="SliderJoint3D" parent="." index="19"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_009Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_010Body2" type="RigidBody3D" parent="." index="20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894426, -0.447216, -5.96856e-13)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23872" type="CollisionShape3D" parent="Bone_010Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894426, 0.0447216, 5.96856e-14)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23873" type="SliderJoint3D" parent="." index="21"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_010Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_011Body2" type="RigidBody3D" parent="." index="22"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.723607, -0.447219, 0.525725)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23875" type="CollisionShape3D" parent="Bone_011Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0723607, 0.0447219, -0.0525725)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23876" type="SliderJoint3D" parent="." index="23"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_011Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
+
+[node name="Bone_012Body2" type="RigidBody3D" parent="." index="24"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+continuous_cd = true
+
+[node name="@CollisionShape3D@23878" type="CollisionShape3D" parent="Bone_012Body2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("SphereShape3D_pm753")
+
+[node name="@SliderJoint3D@23879" type="SliderJoint3D" parent="." index="25"]
+node_a = NodePath("../CoreBody")
+node_b = NodePath("../Bone_012Body2")
+exclude_nodes_from_collision = false
+linear_limit/lower_distance = 0.0
