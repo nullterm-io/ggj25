@@ -1,11 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://jjfutlp6idh"]
 
-[ext_resource type="Script" path="res://scripts/character/character_contoller.gd" id="1_me1tv"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_1ufjm"]
+[ext_resource type="Script" uid="uid://cu0awl788gm58" path="res://scripts/character/character_contoller.gd" id="1_me1tv"]
+[ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="2_rkhd4"]
 
 [node name="Character" type="Node3D"]
 script = ExtResource("1_me1tv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_1ufjm")
+[node name="Bubble" parent="." instance=ExtResource("2_rkhd4")]
