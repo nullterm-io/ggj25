@@ -29,7 +29,7 @@ extends Node3D
 var _elapsed_distance := 0.0
 var _angle := 0.0
 var _target_angle := 0.0
-var _segments: Array = []
+var _segments: Array[Node] = []
 var _obstacles_gen: ObstaclesGen
 
 func _ready():
@@ -62,8 +62,8 @@ func _update_angle(delta: float) -> void:
 		_elapsed_distance -= angle_change_dist
 
 func _update_sections(delta: float) -> void:
-	var segments_to_erase = 0
-	var run_length = 0.0
+	var segments_to_erase := 0
+	var run_length := 0.0
 
 	# Move the segments back
 	for seg in _segments:
@@ -76,10 +76,10 @@ func _update_sections(delta: float) -> void:
 
 	# Add new segments to cover the remaining run length
 	while run_length < pipe_length:
-		var last_segment = _segments[-1]
-		var segment = section_template.duplicate()
-		var offset = Vector3(cos(_angle), sin(_angle), 0) * _segment_length * max_offset
-		var segment_position = last_segment.position + Vector3.FORWARD * _segment_length + offset
+		var last_segment := _segments[-1]
+		var segment := section_template.duplicate()
+		var offset: Vector3 = Vector3(cos(_angle), sin(_angle), 0) * _segment_length * max_offset
+		var segment_position: Vector3 = last_segment.position + Vector3.FORWARD * _segment_length + offset
 
 		_pipe.add_child(segment)
 		segment.position = segment_position
@@ -94,21 +94,21 @@ func _update_sections(delta: float) -> void:
 		segments_to_erase -= 1
 
 func _update_position(_delta: float) -> void:
-	var zero_segment_index = int(clearance_dist / _segment_length) + 1
+	var zero_segment_index := int(clearance_dist / _segment_length) + 1
 	if zero_segment_index < len(_segments):
 		_pipe.position = -_segments[zero_segment_index].position
 		_pipe.position.z = 0
 
 func _on_obstacle_spawn_timer_timeout() -> void:
-	var scene = obstacle_scenes.pick_random()
+	var scene: PackedScene = obstacle_scenes.pick_random()
 	var delay_time = randf_range(2.0, 5.0)
 
 	if scene:
-		var obstacle = scene.instantiate()
-		var segment = _segments[-1]
-		var obpos = _obstacles_gen.pop_gen_position()
-		var angle = atan2(obpos.y, obpos.x)
-		var pos = Vector3(cos(angle), sin(angle), 0) * _outer_radius
+		var obstacle := scene.instantiate()
+		var segment := _segments[-1]
+		var obpos := _obstacles_gen.pop_gen_position()
+		var angle := atan2(obpos.y, obpos.x)
+		var pos: Vector3 = Vector3(cos(angle), sin(angle), 0) * _outer_radius
 
 		segment.add_child(obstacle)
 
