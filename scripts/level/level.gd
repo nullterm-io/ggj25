@@ -19,6 +19,7 @@ extends Node3D
 @export var section_template: Node3D
 
 @export var obstacle_scenes: Array[PackedScene]
+@export var enemies_scenes: Array[PackedScene]
 
 @onready var _outer_radius = section_template.outer_radius
 @onready var _inner_radius = section_template.inner_radius
@@ -31,6 +32,12 @@ var _angle := 0.0
 var _target_angle := 0.0
 var _segments: Array[Node] = []
 var _obstacles_gen: ObstaclesGen
+
+
+var _obstacle_types: Array[Common.ObstacleType] = [
+	Common.ObstacleType.ENEMY,
+	Common.ObstacleType.OBSTACLE
+]
 
 func _ready():
 	assert(section_template)
@@ -100,19 +107,38 @@ func _update_position(_delta: float) -> void:
 		_pipe.position.z = 0
 
 func _on_obstacle_spawn_timer_timeout() -> void:
-	var scene: PackedScene = obstacle_scenes.pick_random()
 	var delay_time = randf_range(2.0, 5.0)
 
-	if scene:
-		var obstacle := scene.instantiate()
-		var segment := _segments[-1]
-		var obpos := _obstacles_gen.pop_gen_position()
-		var angle := atan2(obpos.y, obpos.x)
-		var pos: Vector3 = Vector3(cos(angle), sin(angle), 0) * _outer_radius
-
-		segment.add_child(obstacle)
-
-		obstacle.global_position = segment.global_position + pos
-		obstacle.global_basis = Basis(Quaternion(Vector3.DOWN, pos.normalized()))
+	match _obstacle_types.pick_random():
+		Common.ObstacleType.ENEMY:
+			_enemy_spawn()
+		Common.ObstacleType.OBSTACLE:
+			_spawn_obstacle()
 
 	$ObstacleSpawnTimer.start(delay_time)
+
+func _spawn_obstacle() -> void:
+	var scene: PackedScene = obstacle_scenes.pick_random()
+	var obstacle := scene.instantiate()
+	var segment := _segments[-1]
+	var obpos := _obstacles_gen.pop_gen_position()
+	var angle := atan2(obpos.y, obpos.x)
+	var pos: Vector3 = Vector3(cos(angle), sin(angle), 0) * _outer_radius
+	segment.add_child(obstacle)
+
+	obstacle.global_position = segment.global_position + pos
+	obstacle.global_basis = Basis(Quaternion(Vector3.DOWN, pos.normalized()))
+
+var _directions: Array[int] = [1, -1]
+func _enemy_spawn() -> void:
+	assert(enemies_scenes.size() > 0)
+	assert(_segments.size() > 0)
+	var segment := _segments[-1]
+	var dir: int = _directions.pick_random()
+	var enemy: AI = enemies_scenes.pick_random().instantiate()
+	enemy.direction = dir
+	enemy.setParent(segment)
+	enemy.resetPosition()
+	add_child(enemy)
+	
+	print("Enemy spawned with direction: ", dir)

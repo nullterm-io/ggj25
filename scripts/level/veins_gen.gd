@@ -85,10 +85,3 @@ func try_gen_positions() -> void:
 				sorted_positions.insert(j, gen_p)
 		else:
 			sorted_positions.insert(j, gen_p)
-		
-		
-	#TODO: add logic to do probing on array and adjust gen_p to fit it somewhere 
-	# between neighbour elements instead ? 
-
-func _enemy_spawn() -> void:
-	pass

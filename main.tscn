@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://br4drfrtg214t"]
+[gd_scene load_steps=27 format=3 uid="uid://br4drfrtg214t"]
 
 [ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ddu6t7qlafpcn" path="res://scenes/level.tscn" id="1_kek77"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cqyn0ifcurywd" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_efxa6"]
 [ext_resource type="PackedScene" uid="uid://ditf0jo254fgr" path="res://scenes/props/parts/triangle_crystal.tscn" id="5_yaehf"]
 [ext_resource type="Script" uid="uid://brk4auxrpli3h" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dmdubbdp3m2m4" path="res://scenes/props/ai_virus.tscn" id="6_yaehf"]
 [ext_resource type="Script" uid="uid://7taosnlfs16b" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_ycdy4"]
 [ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
@@ -103,6 +104,7 @@ angle_change_dist = 1
 max_offset = 0.25
 scroll_speed = 4.0
 obstacle_scenes = Array[PackedScene]([ExtResource("2_dg77c"), ExtResource("3_vivmo"), ExtResource("4_2cqfq"), ExtResource("5_yaehf")])
+enemies_scenes = Array[PackedScene]([ExtResource("6_yaehf")])
 
 [node name="Bubble" parent="." instance=ExtResource("16_2cqfq")]
 

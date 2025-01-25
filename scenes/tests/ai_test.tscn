@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqdmivuuetk3i"]
+[gd_scene load_steps=5 format=3 uid="uid://dqdmivuuetk3i"]
 
-[ext_resource type="Script" uid="uid://w8wyup1blls" path="res://scripts/ai/ai.gd" id="1_fbv7r"]
-[ext_resource type="PackedScene" uid="uid://iijrfe2goswq" path="res://scenes/props/virus.tscn" id="2_wj4ch"]
+[ext_resource type="PackedScene" uid="uid://dmdubbdp3m2m4" path="res://scenes/props/ai_virus.tscn" id="1_he8p1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_se001"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,9 +15,6 @@ sky = SubResource("Sky_ceju1")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_c3qk3"]
-radius = 0.205981
-
 [node name="AiTest" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -31,11 +27,4 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mmpb2")
 
-[node name="AI" type="CharacterBody3D" parent="."]
-script = ExtResource("1_fbv7r")
-metadata/_custom_type_script = ExtResource("1_fbv7r")
-
-[node name="virus" parent="AI" instance=ExtResource("2_wj4ch")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AI"]
-shape = SubResource("SphereShape3D_c3qk3")
+[node name="AI" parent="." instance=ExtResource("1_he8p1")]

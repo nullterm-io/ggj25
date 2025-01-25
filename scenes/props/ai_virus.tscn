@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmdubbdp3m2m4"]
+
+[ext_resource type="Script" uid="uid://w8wyup1blls" path="res://scripts/ai/ai.gd" id="1_kv5ff"]
+[ext_resource type="PackedScene" uid="uid://iijrfe2goswq" path="res://scenes/props/parts/virus.tscn" id="2_il2oe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c3qk3"]
+radius = 0.205981
+
+[node name="AI" type="CharacterBody3D"]
+script = ExtResource("1_kv5ff")
+speed = 2.0
+metadata/_custom_type_script = ExtResource("1_kv5ff")
+
+[node name="virus" parent="." instance=ExtResource("2_il2oe")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_c3qk3")

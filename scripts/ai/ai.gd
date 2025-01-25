@@ -1,15 +1,26 @@
 class_name AI extends CharacterBody3D
 
 @export var speed := 1.0
+@export var radius := 2.5
 
 var angle := 1.0
-var radius := 2.5
 var direction := 1.0
 
+var _parent: Node3D = null
+
 func _process(delta: float) -> void:
+	if _parent == null:
+		queue_free()
+		return
 	angle = angle + direction * speed * delta
-	print(angle, Common.to_vec3(Common.point_on_circle(speed, angle)))
-	_move(Common.to_vec3(Common.point_on_circle(speed, angle)))
+	_move(_calc_position())
+
+func resetPosition() -> void:
+	position = _calc_position()
+
+func _calc_position() -> Vector3:
+	var offset := _parent.global_transform.origin
+	return Common.to_vec3(Common.point_on_circle(speed, angle)) + offset
 
 func _move(target_position: Vector3) -> void:
 	var dir = (target_position - global_transform.origin).normalized()
@@ -18,3 +29,6 @@ func _move(target_position: Vector3) -> void:
 	if collision:
 		print("Collision")
 	global_transform.origin = target_position
+	
+func setParent(parent: Node3D) -> void:
+	_parent = parent

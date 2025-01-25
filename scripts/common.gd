@@ -10,3 +10,8 @@ func to_vec2(vec3: Vector3) -> Vector2:
 
 func to_vec3(vec2: Vector2, z: float = 0) -> Vector3:
 	return Vector3(vec2.x, vec2.y, z)
+
+enum ObstacleType {
+	ENEMY,
+	OBSTACLE
+}
