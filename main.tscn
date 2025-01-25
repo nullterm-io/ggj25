@@ -18,8 +18,8 @@
 [ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="10_074og"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
-[ext_resource type="AudioStream" uid="uid://cdpacvalaityb" path="res://assets/music/main_theme.wav" id="19_82xsv"]
 [ext_resource type="AudioStream" uid="uid://dtitu3xn328a6" path="res://assets/sfx/heart_beat.ogg" id="19_cegan"]
+[ext_resource type="AudioStream" uid="uid://cwufit28nksws" path="res://assets/music/main_theme.ogg" id="19_getpj"]
 [ext_resource type="PackedScene" path="res://scenes/game_over.tscn" id="19_ryguw"]
 [ext_resource type="Script" uid="uid://bxww3vs403gsx" path="res://scripts/hart_beat.gd" id="21_getpj"]
 
@@ -233,7 +233,7 @@ h6 = SubResource("Resource_82xsv")
 [node name="GameOver" parent="." instance=ExtResource("19_ryguw")]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_82xsv")
+stream = ExtResource("19_getpj")
 volume_db = -18.0
 autoplay = true
 
