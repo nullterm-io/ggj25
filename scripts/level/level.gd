@@ -3,6 +3,9 @@ extends Node3D
 ## Number of torus segments at one time
 @export var pipe_length = 50
 
+## Distance into Z+, after which segments are destroyed
+@export var clearance_dist: float = 5
+
 ## Distance after which the curvature angle changes
 @export var angle_change_dist = 25
 
@@ -56,7 +59,7 @@ func _update_sections(delta: float) -> void:
 	# Move the segments back
 	for seg in _segments:
 		seg.position += Vector3.BACK * scroll_speed * delta
-		if seg.position.z + _segment_length > 0:
+		if seg.position.z + _segment_length >= clearance_dist:
 			segments_to_erase += 1
 			run_length -= _segment_length
 		else:

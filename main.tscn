@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://br4drfrtg214t"]
+[gd_scene load_steps=26 format=3 uid="uid://br4drfrtg214t"]
 
 [ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ddu6t7qlafpcn" path="res://scenes/level.tscn" id="1_kek77"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://brk4auxrpli3h" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_dg77c"]
 [ext_resource type="Script" uid="uid://7taosnlfs16b" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_ycdy4"]
 [ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
+[ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87y77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -103,7 +104,10 @@ max_offset = 0.25
 scroll_speed = 2.0
 obstacle_scenes = Array[PackedScene]([ExtResource("2_dg77c"), ExtResource("3_vivmo"), ExtResource("4_2cqfq"), ExtResource("5_yaehf")])
 
+[node name="Bubble" parent="." instance=ExtResource("16_2cqfq")]
+
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 fov = 90.0
 script = ExtResource("2_efxa6")
 
