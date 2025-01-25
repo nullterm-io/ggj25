@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://iehobv84byc8" path="res://scripts/camera/camera.gd" id="1_gqr74"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="1_vyvsf"]
-[ext_resource type="Script" uid="uid://bauebmivwi3up" path="res://scripts/effects/noise_shake.gd" id="2_kgmpp"]
+[ext_resource type="Script" path="res://scripts/effects/noise_shake.gd" id="2_kgmpp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87y77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

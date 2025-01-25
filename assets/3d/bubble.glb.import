@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/bubble.glb-85633a08f12cb4c2e1b1fb9be54959ad.s
 
 [params]
 
-nodes/root_type="CharacterController"
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

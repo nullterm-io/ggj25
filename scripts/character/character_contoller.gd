@@ -1,4 +1,4 @@
-class_name CharacterController extends CharacterBody3D
+class_name CharacterController extends Node3D
 
 @export var max_radius: float = 3
 @export var max_speed: float = 3
