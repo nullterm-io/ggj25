@@ -102,17 +102,17 @@ func _update_position(_delta: float) -> void:
 func _on_obstacle_spawn_timer_timeout() -> void:
 	var scene = obstacle_scenes.pick_random()
 	var delay_time = randf_range(2.0, 5.0)
-	
+
 	if scene:
 		var obstacle = scene.instantiate()
 		var segment = _segments[-1]
 		var obpos = _obstacles_gen.pop_gen_position()
 		var angle = atan2(obpos.y, obpos.x)
 		var pos = Vector3(cos(angle), sin(angle), 0) * _outer_radius
-		
+
 		segment.add_child(obstacle)
 
 		obstacle.global_position = segment.global_position + pos
 		obstacle.global_basis = Basis(Quaternion(Vector3.DOWN, pos.normalized()))
-		
+
 	$ObstacleSpawnTimer.start(delay_time)
