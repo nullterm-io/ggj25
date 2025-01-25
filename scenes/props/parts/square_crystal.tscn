@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://s6me3k5y07ok"]
+
+[ext_resource type="PackedScene" uid="uid://dopphmad60ww5" path="res://assets/3d/SquareCrystal2.glb" id="1_44ffb"]
+[ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystal_mat.tres" id="2_h4cfm"]
+[ext_resource type="Script" uid="uid://ggqb115giyhl" path="res://scripts/dynamic_emisiveness.gd" id="3_h4cfm"]
+
+[node name="SquareCrystal2" instance=ExtResource("1_44ffb")]
+
+[node name="SquareCrystal" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0474601, 0.708802, 0)
+surface_material_override/0 = ExtResource("2_h4cfm")
+script = ExtResource("3_h4cfm")

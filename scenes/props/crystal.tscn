@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpddkxd6anpjt"]
+
+[ext_resource type="PackedScene" uid="uid://bpfdnq2qyfol" path="res://scenes/props/parts/taller_crystal.tscn" id="2_rhejx"]
+[ext_resource type="PackedScene" uid="uid://ditf0jo254fgr" path="res://scenes/props/parts/triangle_crystal.tscn" id="3_odwgw"]
+[ext_resource type="PackedScene" uid="uid://s6me3k5y07ok" path="res://scenes/props/parts/square_crystal.tscn" id="4_yorcj"]
+[ext_resource type="PackedScene" uid="uid://vmpid0g1e1ku" path="res://scenes/props/parts/tall_crystal.tscn" id="5_odwgw"]
+
+[node name="Crystal" type="Node3D"]
+
+[node name="TallCrystal" parent="." instance=ExtResource("5_odwgw")]
+transform = Transform3D(1, 0, 0, 0, 0.699065, -0.715059, 0, 0.715059, 0.699065, 0.0444783, 0, 0.690638)
+
+[node name="TallCrystal2" parent="." instance=ExtResource("5_odwgw")]
+transform = Transform3D(0.985753, -0.168197, 0, 0.162741, 0.953779, -0.252627, 0.042491, 0.249028, 0.967564, -0.518266, 0.0546322, 1.08356)
+
+[node name="TallCrystal3" parent="." instance=ExtResource("2_rhejx")]
+transform = Transform3D(0.828835, -0.558947, 0.0247269, 0.559381, 0.826971, -0.056673, 0.0112288, 0.0608043, 0.998087, -0.295141, -0.146954, 0.506234)
+
+[node name="TriangleCrystal2" parent="." instance=ExtResource("3_odwgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75145, 0, 0.886355)
+
+[node name="SquareCrystal2" parent="." instance=ExtResource("4_yorcj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.413621)
+
+[node name="TallCrystal4" parent="." instance=ExtResource("5_odwgw")]
+transform = Transform3D(0.9682, 0.250177, 0, -0.248299, 0.96093, -0.12232, -0.0306016, 0.11843, 0.992491, -0.109168, 0, 0.393626)
+
+[node name="TriangleCrystal3" parent="." instance=ExtResource("3_odwgw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08938, 0, 0.172942)

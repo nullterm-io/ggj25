@@ -1,0 +1,1080 @@
+[gd_scene load_steps=18 format=3 uid="uid://4xri2pqto132"]
+
+[ext_resource type="PackedScene" path="res://scenes/bubble.tscn" id="1_6rs05"]
+[ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="1_f1207"]
+[ext_resource type="PackedScene" uid="uid://cpddkxd6anpjt" path="res://scenes/props/crystal.tscn" id="3_bdfgm"]
+
+[sub_resource type="Sky" id="Sky_7rgt5"]
+
+[sub_resource type="Environment" id="Environment_f1207"]
+sky = SubResource("Sky_7rgt5")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_normalized = true
+glow_intensity = 0.5
+glow_strength = 0.8
+glow_blend_mode = 0
+fog_mode = 1
+fog_light_color = Color(0.146704, 0.00340711, 0.013618, 1)
+fog_density = 1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0.171407, 0.0106124, 0.0106047, 1)
+volumetric_fog_emission = Color(0.378232, 6.94888e-07, 3.1285e-07, 1)
+volumetric_fog_emission_energy = 0.05
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_bdfgm"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 80.0
+dof_blur_far_transition = 148.29
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.5
+dof_blur_near_transition = -1.0
+
+[sub_resource type="Compositor" id="Compositor_isxh3"]
+
+[sub_resource type="Curve" id="Curve_7rgt5"]
+_data = [Vector2(0, 0.00497019), 0.0, 0.0, 0, 0, Vector2(0.498715, 0.993539), 0.0, 0.0, 0, 0, Vector2(0.997429, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_f1207"]
+curve = SubResource("Curve_7rgt5")
+
+[sub_resource type="Curve" id="Curve_bdfgm"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_isxh3"]
+curve = SubResource("Curve_bdfgm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_13ih7"]
+lifetime_randomness = 0.25
+emission_shape_scale = Vector3(10, 10, 20)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+inherit_velocity_ratio = -1.375
+direction = Vector3(1, 1, 100)
+spread = 5.0
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.75
+alpha_curve = SubResource("CurveTexture_f1207")
+hue_variation_curve = SubResource("CurveTexture_isxh3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_isxh3"]
+material = ExtResource("1_f1207")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1207"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.85098, 0.74902, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bdfgm"]
+material = SubResource("StandardMaterial3D_f1207")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_bcayf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13ih7"]
+albedo_color = Color(0.698039, 0.0705882, 0.0745098, 1)
+metallic_specular = 0.0
+
+[node name="VisualsTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f1207")
+camera_attributes = SubResource("CameraAttributesPractical_bdfgm")
+compositor = SubResource("Compositor_isxh3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.5995)
+
+[node name="RedBloodParticles" type="GPUParticles3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.69468, 0, -23.4485)
+amount = 100
+randomness = 1.0
+local_coords = true
+trail_lifetime = 0.57
+process_material = SubResource("ParticleProcessMaterial_13ih7")
+draw_pass_1 = SubResource("SphereMesh_isxh3")
+
+[node name="WhiteBloodParticles" type="GPUParticles3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38935, 0, -46.8969)
+amount = 20
+randomness = 1.0
+trail_lifetime = 0.57
+process_material = SubResource("ParticleProcessMaterial_13ih7")
+draw_pass_1 = SubResource("SphereMesh_bdfgm")
+
+[node name="Bubble" parent="." instance=ExtResource("1_6rs05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.924)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(9.17427, -2.65033, -2.96791, -1.45628, 4.70492, -8.70304, 3.70298, 8.41662, 3.93046, 2.62489, -19.2275, -53.6297)
+size = Vector3(1.03467, 1, 0.898315)
+material = SubResource("ORMMaterial3D_bcayf")
+
+[node name="Vein" type="Node" parent="."]
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0.587158, 1.18613, -12.8501)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D2" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0.826942, 1.10526, -16.4084)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D3" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0.599182, 1.18613, -19.706)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D4" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0.599182, 1.18613, -22.9736)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D5" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0.599182, 1.18613, -26.006)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D6" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -1.1866, 1.18613, -29.7665)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D7" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -3.18701, 1.18613, -32.6733)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D8" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -5.17917, 1.18613, -36.1791)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D9" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -6.62917, 1.18613, -39.9303)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D10" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -7.70012, 1.18613, -43.3509)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D11" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -9.79013, 1.18613, -46.3992)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D12" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -11.7905, 1.18613, -49.306)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D13" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -13.7827, 1.18613, -52.8118)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D14" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -15.2327, 1.18613, -56.563)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D15" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, 1.18613, -59.9836)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D16" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -0.889093, -63.563)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D17" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -2.75343, -67.1623)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D18" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -4.46468, -70.2202)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D19" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -6.05294, -73.6438)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D20" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -7.77584, -76.9485)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D21" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -10.0115, -80.1251)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D22" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -11.8758, -83.7243)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D23" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -13.587, -86.7823)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D24" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -15.1753, -90.2058)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D25" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -16.3036, -16.8982, -93.5106)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D26" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -17.5794, -18.9573, -96.7727)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D27" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -17.3517, -19.0382, -100.336)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D28" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -17.5794, -18.9573, -103.634)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D29" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -17.5794, -18.9573, -106.901)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D30" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -17.5794, -18.9573, -109.934)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D31" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -19.3652, -18.9573, -113.694)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D32" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -21.3656, -18.9573, -116.601)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D33" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -23.3578, -18.9573, -120.107)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D34" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -24.8078, -18.9573, -123.858)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D35" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -25.8787, -18.9573, -127.279)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D36" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -27.9687, -18.9573, -130.327)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D37" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -29.9691, -18.9573, -133.234)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D38" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -31.9613, -18.9573, -136.739)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D39" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.4113, -18.9573, -140.491)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D40" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -18.9573, -143.911)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D41" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -21.0325, -147.491)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D42" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -22.8969, -151.09)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D43" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -24.6081, -154.148)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D44" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -26.1964, -157.572)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D45" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -27.9193, -160.876)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D46" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -30.1549, -164.053)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D47" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -32.0192, -167.652)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D48" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -33.7305, -170.71)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D49" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -35.3188, -174.134)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D50" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -34.4822, -37.0417, -177.438)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D51" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.8358, -39.103, -180.91)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D52" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.6081, -39.1839, -184.474)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D53" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.8358, -39.103, -187.771)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D54" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.8358, -39.103, -191.039)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D55" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -33.8358, -39.103, -194.071)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D56" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -35.6216, -39.103, -197.832)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D57" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -37.622, -39.103, -200.739)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D58" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -39.6142, -39.103, -204.244)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D59" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -41.0642, -39.103, -207.996)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D60" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -42.1351, -39.103, -211.416)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D61" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -44.2252, -39.103, -214.465)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D62" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -46.2256, -39.103, -217.371)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D63" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -48.2177, -39.103, -220.877)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D64" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -49.6677, -39.103, -224.628)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D65" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -39.103, -228.049)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D66" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -41.1782, -231.628)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D67" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -43.0426, -235.228)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D68" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -44.7538, -238.286)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D69" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -46.3421, -241.709)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D70" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -48.065, -245.014)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D71" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -50.3006, -248.19)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D72" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -52.1649, -251.79)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D73" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -53.8762, -254.848)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D74" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -55.4645, -258.271)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D75" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -50.7387, -57.1874, -261.576)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D76" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -52.0144, -59.2465, -264.838)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D77" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -51.7867, -59.3273, -268.401)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D78" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -52.0144, -59.2465, -271.699)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D79" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -52.0144, -59.2465, -274.967)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D80" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -52.0144, -59.2465, -277.999)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D81" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -53.8002, -59.2465, -281.76)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D82" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -55.8006, -59.2465, -284.666)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D83" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -57.7928, -59.2465, -288.172)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D84" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -59.2428, -59.2465, -291.923)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D85" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -60.3137, -59.2465, -295.344)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D86" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -62.4037, -59.2465, -298.392)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D87" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -64.4042, -59.2465, -301.299)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D88" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -66.3963, -59.2465, -304.805)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D89" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -67.8463, -59.2465, -308.556)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D90" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -59.2465, -311.977)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D91" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -61.3217, -315.556)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D92" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -63.186, -319.155)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D93" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -64.8973, -322.213)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D94" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -66.4855, -325.637)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D95" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -68.2084, -328.942)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D96" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -70.4441, -332.118)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D97" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -72.3084, -335.717)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D98" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -74.0196, -338.775)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D99" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -75.6079, -342.199)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D100" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -77.3308, -345.504)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D101" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -78.4358, -348.596)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D102" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -80.5111, -352.175)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D103" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -82.3754, -355.774)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D104" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -84.0867, -358.832)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D105" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -85.6749, -362.256)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D106" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -87.3978, -365.561)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D107" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -89.6334, -368.737)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D108" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -91.4978, -372.336)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D109" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -93.209, -375.394)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D110" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -94.7973, -378.818)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D111" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -96.5202, -382.123)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D112" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -97.783, -385.644)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D113" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -99.8582, -389.223)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D114" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -101.723, -392.822)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D115" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -103.434, -395.88)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D116" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -105.022, -399.304)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D117" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -106.745, -402.609)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D118" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -108.981, -405.785)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D119" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -110.845, -409.385)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D120" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -112.556, -412.442)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D121" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -114.144, -415.866)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D122" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -115.867, -419.171)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D123" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -117.093, -422.756)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D124" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -119.168, -426.335)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D125" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -121.032, -429.934)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D126" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -122.743, -432.992)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D127" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -124.332, -436.416)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D128" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -126.055, -439.721)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D129" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -128.29, -442.897)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D130" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -130.155, -446.496)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D131" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -131.866, -449.554)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D132" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -133.454, -452.978)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="CSGTorus3D133" type="CSGTorus3D" parent="Vein"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, -68.9173, -135.177, -456.283)
+inner_radius = 2.0
+outer_radius = 2.4108
+sides = 32
+material = SubResource("StandardMaterial3D_13ih7")
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(7.27857, -8.9407e-07, -6.85729, -5.77152, 5.40005, -6.12609, 3.70298, 8.41662, 3.93046, -27.1916, -0.784107, -134.721)
+size = Vector3(1.03467, 1, 0.898315)
+material = SubResource("ORMMaterial3D_bcayf")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(7.27857, -8.9407e-07, -6.85729, -5.77152, 5.40005, -6.12609, 3.70298, 8.41662, 3.93046, -15.0355, -23.8437, -156.305)
+size = Vector3(1.03467, 1, 0.898315)
+material = SubResource("ORMMaterial3D_bcayf")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(7.27857, -8.9407e-07, -6.85729, -5.77152, 5.40005, -6.12609, 3.70298, 8.41662, 3.93046, -66.1527, -40.7955, -225.088)
+size = Vector3(1.03467, 1, 0.898315)
+material = SubResource("ORMMaterial3D_bcayf")
+
+[node name="Crystal" parent="." instance=ExtResource("3_bdfgm")]
+transform = Transform3D(1.77551, 0.833756, -0.3904, -0.715112, 1.78314, 0.555888, 0.579807, -0.353903, 1.88111, -28.3932, -31.4196, -92.6466)
+
+[node name="Crystal" parent="Crystal" instance=ExtResource("3_bdfgm")]
+transform = Transform3D(1.77551, 0.833756, -0.3904, -0.715112, 1.78314, 0.555888, 0.579807, -0.353903, 1.88111, -55.1039, -20.5884, -141.936)
