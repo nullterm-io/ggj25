@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dopphmad60ww5"
-path="res://.godot/imported/SquareCrystal2.glb-93937d25146091d4b2c638719d28be2b.scn"
+uid="uid://ch5r86l0ujhk3"
+path="res://.godot/imported/tall_crystal.glb-20ecb2c448e061fdcc71cfd57772f5bb.scn"
 
 [deps]
 
-source_file="res://assets/3d/SquareCrystal2.glb"
-dest_files=["res://.godot/imported/SquareCrystal2.glb-93937d25146091d4b2c638719d28be2b.scn"]
+source_file="res://assets/3d/tall_crystal.glb"
+dest_files=["res://.godot/imported/tall_crystal.glb-20ecb2c448e061fdcc71cfd57772f5bb.scn"]
 
 [params]
 

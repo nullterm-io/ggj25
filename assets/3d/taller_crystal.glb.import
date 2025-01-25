@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ch5r86l0ujhk3"
-path="res://.godot/imported/TallCrystal.glb-40dfe430f50d62c1938c1395a708b0f4.scn"
+uid="uid://dhvh2vqnetfqc"
+path="res://.godot/imported/taller_crystal.glb-0b975e49f4ea2d726710e22c75ccf5b4.scn"
 
 [deps]
 
-source_file="res://assets/3d/TallCrystal.glb"
-dest_files=["res://.godot/imported/TallCrystal.glb-40dfe430f50d62c1938c1395a708b0f4.scn"]
+source_file="res://assets/3d/taller_crystal.glb"
+dest_files=["res://.godot/imported/taller_crystal.glb-0b975e49f4ea2d726710e22c75ccf5b4.scn"]
 
 [params]
 

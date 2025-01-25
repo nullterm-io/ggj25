@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpfdnq2qyfol"]
 
-[ext_resource type="PackedScene" uid="uid://dhvh2vqnetfqc" path="res://assets/3d/TallCrystal2.glb" id="1_os2f0"]
-[ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystal_mat.tres" id="2_0gugi"]
-[ext_resource type="Script" uid="uid://ggqb115giyhl" path="res://scripts/dynamic_emisiveness.gd" id="3_0gugi"]
+[ext_resource type="PackedScene" uid="uid://dhvh2vqnetfqc" path="res://assets/3d/taller_crystal.glb" id="1_os2f0"]
+[ext_resource type="Material" uid="uid://co66itc6y4adg" path="res://assets/materials/crystals_material.tres" id="2_0gugi"]
+[ext_resource type="Script" path="res://scripts/dynamic_emisiveness.gd" id="3_0gugi"]
 
-[node name="TallCrystal2" instance=ExtResource("1_os2f0")]
+[node name="TallerCrystal" instance=ExtResource("1_os2f0")]
 
 [node name="TallCrystal" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0679101, 2.29992, 0)

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://iqce671v45sq"
-path="res://.godot/imported/TriangleCrystal.glb-f252423431d9f4cace9c566fa8c42eb8.scn"
+uid="uid://dopphmad60ww5"
+path="res://.godot/imported/square_crystal.glb-690c5ba6358f0b375bc6cbd2b9c58ee8.scn"
 
 [deps]
 
-source_file="res://assets/3d/TriangleCrystal.glb"
-dest_files=["res://.godot/imported/TriangleCrystal.glb-f252423431d9f4cace9c566fa8c42eb8.scn"]
+source_file="res://assets/3d/square_crystal.glb"
+dest_files=["res://.godot/imported/square_crystal.glb-690c5ba6358f0b375bc6cbd2b9c58ee8.scn"]
 
 [params]
 
