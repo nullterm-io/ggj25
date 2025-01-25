@@ -4,10 +4,10 @@ extends Node3D
 @export var pipe_length = 50
 
 ## Distance after which the curvature angle changes
-@export var angle_change_dist = 25
+@export var angle_change_dist = 100
 
 ## Maximum random offset between segments
-@export var max_offset = 0.01
+@export var max_offset = 0.08
 
 ## Movement speed along the path
 @export var scroll_speed = 2.5
@@ -22,6 +22,7 @@ extends Node3D
 
 var _elapsed_distance := 0.0
 var _angle := 0.0
+var _target_angle := 0.0
 var _segments: Array = []
 
 func _ready():
@@ -42,11 +43,12 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	_update_position(delta)
+	_angle = lerp(_angle, _target_angle, 0.01)
 
 func _update_angle(delta: float) -> void:
 	_elapsed_distance += scroll_speed * delta
 	if _elapsed_distance >= angle_change_dist:
-		_angle = randf() * TAU
+		_target_angle = randf() * TAU
 		_elapsed_distance -= angle_change_dist
 
 func _update_sections(delta: float) -> void:

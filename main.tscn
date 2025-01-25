@@ -99,8 +99,8 @@ shadow_enabled = true
 [node name="Level" parent="." instance=ExtResource("1_kek77")]
 pipe_length = 10
 angle_change_dist = 1
-max_offset = 0.25
-scroll_speed = 2.0
+max_offset = 0.5
+scroll_speed = 4.0
 obstacle_scenes = Array[PackedScene]([ExtResource("2_dg77c"), ExtResource("3_vivmo"), ExtResource("4_2cqfq"), ExtResource("5_yaehf")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
