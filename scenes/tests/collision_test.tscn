@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cqw06u34j5bgb"]
 
 [ext_resource type="Script" uid="uid://iehobv84byc8" path="res://scripts/camera/camera.gd" id="1_nm1gi"]
-[ext_resource type="Script" path="res://scripts/effects/noise_shake.gd" id="2_alc3g"]
+[ext_resource type="Script" uid="uid://bauebmivwi3up" path="res://scripts/effects/noise_shake.gd" id="2_alc3g"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="3_euco5"]
 [ext_resource type="PackedScene" uid="uid://s6me3k5y07ok" path="res://scenes/props/parts/square_crystal.tscn" id="4_euco5"]
 [ext_resource type="Script" uid="uid://2osoou05bwe1" path="res://scripts/debug/move_debug.gd" id="5_6itp0"]
