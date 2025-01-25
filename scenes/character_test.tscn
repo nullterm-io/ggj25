@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxyr0x5v83ouc"]
+[gd_scene load_steps=9 format=3 uid="uid://cxyr0x5v83ouc"]
 
+[ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_gqr74"]
 [ext_resource type="PackedScene" uid="uid://jjfutlp6idh" path="res://scenes/character.tscn" id="1_xchws"]
+[ext_resource type="Script" path="res://scripts/effects/noise_shake.gd" id="2_kgmpp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87y77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -32,6 +34,10 @@ environment = SubResource("Environment_22lrc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.18204)
+script = ExtResource("1_gqr74")
+
+[node name="NoiseShake" type="Node" parent="Camera3D"]
+script = ExtResource("2_kgmpp")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.479977, 0)
