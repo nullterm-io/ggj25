@@ -1,34 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://b322uyw1p565i"]
+[gd_scene load_steps=5 format=3 uid="uid://b322uyw1p565i"]
 
 [ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="1_2vdav"]
-[ext_resource type="Script" uid="uid://cu0awl788gm58" path="res://scripts/character/character_contoller.gd" id="2_b4vvx"]
-[ext_resource type="Script" uid="uid://cby1x3vxka05y" path="res://scripts/character/collide_reaction.gd" id="2_pm753"]
 
 [sub_resource type="Curve" id="Curve_b4vvx"]
 _data = [Vector2(0.03, 0), 0.0, 0.0, 0, 0, Vector2(0.265, 0.876405), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_pm753"]
+radius = 1.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm753"]
 transparency = 1
 albedo_color = Color(0.686275, 1, 1, 0.184314)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_pm753"]
-radius = 1.0
-
 [node name="Bubble" instance=ExtResource("1_2vdav")]
-script = ExtResource("2_b4vvx")
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 jump_curve = SubResource("Curve_b4vvx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_pm753")
 
 [node name="Bubble" parent="Armature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_pm753")
-
-[node name="CollideReaction" type="Node" parent="." index="1"]
-script = ExtResource("2_pm753")
-metadata/_custom_type_script = ExtResource("2_pm753")
-
-[node name="Area3D" type="Area3D" parent="." index="2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
-shape = SubResource("SphereShape3D_pm753")
-
-[connection signal="area_entered" from="Area3D" to="CollideReaction" method="_on_area_3d_area_entered"]
