@@ -21,3 +21,9 @@ material = SubResource("StandardMaterial3D_vbogn")
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_e73ws")
+
+[node name="ObstacleSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="ObstacleSpawnTimer" to="." method="_on_obstacle_spawn_timer_timeout"]

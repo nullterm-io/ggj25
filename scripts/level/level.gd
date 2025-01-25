@@ -15,6 +15,9 @@ extends Node3D
 ## Level section template node
 @export var section_template: Node3D
 
+@export var obstacle_scenes: Array[PackedScene]
+
+@onready var _inner_radius = section_template.inner_radius
 @onready var _segment_length = (section_template.outer_radius - section_template.inner_radius)
 
 var _elapsed_distance := 0.0
@@ -60,12 +63,17 @@ func _update_sections(delta: float) -> void:
 
 	# Add new segments to cover the remaining run length
 	while run_length < pipe_length:
-		var segment = _segments[-1].duplicate()
+		var last_segment = _segments[-1]
+		var segment = section_template.duplicate()
 		var offset = Vector3(cos(_angle), sin(_angle), 0) * _segment_length * max_offset
-		_segments.append(segment)
+		var segment_position = last_segment.position + Vector3.FORWARD * _segment_length + offset
+
 		add_child(segment)
-		segment.position += Vector3.FORWARD * _segment_length + offset
+		segment.position = segment_position
+		segment.visible = true
 		run_length += _segment_length
+
+		_segments.append(segment)
 
 	# Erase segments past zero
 	while segments_to_erase:
@@ -76,3 +84,15 @@ func _update_position(_delta: float) -> void:
 	var forward_segment = _segments[0]
 	global_position = -forward_segment.position
 	global_position.z = 0
+
+func _on_obstacle_spawn_timer_timeout() -> void:
+	var scene = obstacle_scenes.pick_random()
+	if scene:
+		var obstacle = scene.instantiate()
+		var segment = _segments[-1]
+		var angle = randf() * TAU
+		var pos = Vector3(cos(angle), sin(angle), 0) * _inner_radius
+		segment.add_child(obstacle)
+
+		obstacle.position = pos
+		obstacle.global_basis = Basis().rotated(Vector3.FORWARD, angle - PI)
