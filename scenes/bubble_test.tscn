@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv17sdqvo4hl7"]
+
+[ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="1_ufgup"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87y77"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_5faxg"]
+sky_material = SubResource("ProceduralSkyMaterial_87y77")
+
+[sub_resource type="Environment" id="Environment_22lrc"]
+background_mode = 2
+sky = SubResource("Sky_5faxg")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="CharacterTest" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_22lrc")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134, 5.182)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+disable_mode = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.703796, 0)
+use_collision = true
+size = Vector3(12.8264, 1.71643, 13.5381)
+
+[node name="Bubble" parent="." instance=ExtResource("1_ufgup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68701, 0)
