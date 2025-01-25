@@ -7,25 +7,50 @@ extends Node3D
 @export var max_offset = 0.01
 
 ## Movement speed along the path
-@export var pipe_speed = 2.5
+@export var scroll_speed = 2.5
 
 ## Level section template node
 @export var section_template: Node3D
 
-var pipe_path: Path3D
-var pipe_segments: Array = []
+@onready var _segment_length = (section_template.outer_radius - section_template.inner_radius)
+
+var _segments: Array = []
 
 func _ready():
 	assert(section_template)
+
+	_segments.append(section_template.duplicate())
+	add_child(_segments[-1])
 
 	# This is done only to make invisible the template torus in the scene
 	# It is used to generate new ones as an example one
 	section_template.visible = false
 
-	pipe_path = Path3D.new()
-	add_child(pipe_path)
+func _physics_process(delta: float) -> void:
+	var segments_to_erase = 0
+	var run_length = 0.0
 
-	generate_initial_pipe()
+	# Move the segments back
+	for seg in _segments:
+		seg.position += Vector3.BACK * scroll_speed * delta
+		if seg.position.z + _segment_length > 0:
+			segments_to_erase += 1
+			run_length -= _segment_length
+		else:
+			run_length += _segment_length
+
+	# Add new segments to cover the remaining run length
+	while run_length < pipe_length:
+		var segment = _segments[-1].duplicate()
+		_segments.append(segment)
+		add_child(segment)
+		segment.position += Vector3.FORWARD * _segment_length
+		run_length += _segment_length
+
+	# Erase segments past zero
+	while segments_to_erase:
+		_segments.pop_front().queue_free()
+		segments_to_erase -= 1
 
 func generate_offset_vector(z: float) -> Vector3:
 	return Vector3(
@@ -33,54 +58,3 @@ func generate_offset_vector(z: float) -> Vector3:
 		randf_range(-max_offset, max_offset),
 		z,
 	)
-
-func generate_initial_pipe():
-	var curve = Curve3D.new()
-	var current_pos = Vector3.ZERO
-	var segment_distance = (section_template.outer_radius - section_template.inner_radius) * 0.05
-
-	for i in range(pipe_length):
-		var offset = self.generate_offset_vector(-i * segment_distance)
-		curve.add_point(current_pos + offset)
-		current_pos += offset
-
-	pipe_path.curve = curve
-
-	for i in range(pipe_length):
-		var torus = section_template.duplicate()
-		torus.visible = true
-		add_child(torus)
-		pipe_segments.append(torus)
-		var point_pos = pipe_path.curve.get_point_position(i)
-		torus.position = point_pos
-
-func extend_pipe():
-	if pipe_segments.size() > 0:
-		var oldest_segment = pipe_segments.pop_front()
-		oldest_segment.queue_free()
-
-	var curve = pipe_path.curve
-	for i in range(curve.point_count - 1):
-		curve.set_point_position(i, curve.get_point_position(i+1))
-
-	var last_point = curve.get_point_position(curve.point_count - 1)
-	var segment_distance = (section_template.outer_radius - section_template.inner_radius) * 0.05
-	var new_offset = self.generate_offset_vector(-segment_distance)
-	curve.add_point(last_point + new_offset)
-
-	curve.remove_point(0)
-
-	var torus = section_template.duplicate()
-	torus.visible = true
-	add_child(torus)
-
-	pipe_segments.append(torus)
-	var point_pos = curve.get_point_position(pipe_length - 1)
-	torus.position = point_pos
-
-func _process(delta):
-	for segment in pipe_segments:
-		segment.position.z += pipe_speed * delta
-
-	if pipe_segments[0].position.z >= 0:
-		extend_pipe()

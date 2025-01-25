@@ -89,12 +89,13 @@ font_color = Color(1, 1, 1, 1)
 environment = SubResource("Environment_kek77")
 
 [node name="Level" parent="." instance=ExtResource("1_kek77")]
+pipe_length = 20
 
-[node name="Camera3D" type="Camera3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.797872)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.297872)
 script = ExtResource("2_efxa6")
 
-[node name="NoiseShake" type="Node" parent="Level/Camera3D"]
+[node name="NoiseShake" type="Node" parent="Camera3D"]
 script = ExtResource("3_dg77c")
 
 [node name="IntroScreen" type="MarginContainer" parent="."]
