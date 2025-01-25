@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	angle = angle + direction * speed * delta
 	_move(_calc_position())
 
-func resetPosition() -> void:
+func reset_position() -> void:
 	position = _calc_position()
 
 func _calc_position() -> Vector3:
@@ -27,8 +27,8 @@ func _move(target_position: Vector3) -> void:
 	var distance = global_transform.origin.distance_to(target_position)
 	var collision = move_and_collide(dir * distance)
 	if collision:
-		print("Collision")
+		print("Collides")
 	global_transform.origin = target_position
 	
-func setParent(parent: Node3D) -> void:
+func set_parent(parent: Node3D) -> void:
 	_parent = parent

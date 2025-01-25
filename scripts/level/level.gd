@@ -137,6 +137,6 @@ func _enemy_spawn() -> void:
 	var dir: int = _directions.pick_random()
 	var enemy: AI = enemies_scenes.pick_random().instantiate()
 	enemy.direction = dir
-	enemy.setParent(segment)
-	enemy.resetPosition()
+	enemy.set_parent(segment)
+	enemy.reset_position()
 	add_child(enemy)
