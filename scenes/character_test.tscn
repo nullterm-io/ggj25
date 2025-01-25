@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxyr0x5v83ouc"]
+[gd_scene load_steps=8 format=3 uid="uid://cxyr0x5v83ouc"]
 
-[ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_gqr74"]
-[ext_resource type="PackedScene" uid="uid://jjfutlp6idh" path="res://scenes/character.tscn" id="1_xchws"]
-[ext_resource type="Script" path="res://scripts/effects/noise_shake.gd" id="2_kgmpp"]
+[ext_resource type="Script" uid="uid://iehobv84byc8" path="res://scripts/camera/camera.gd" id="1_gqr74"]
+[ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="1_vyvsf"]
+[ext_resource type="Script" uid="uid://bauebmivwi3up" path="res://scripts/effects/noise_shake.gd" id="2_kgmpp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_87y77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,10 +18,6 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ogxl6"]
-
-[sub_resource type="Curve" id="Curve_5m0nr"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.29703, 0.846154), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [node name="CharacterTest" type="Node3D"]
 
@@ -42,8 +38,6 @@ script = ExtResource("2_kgmpp")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.479977, 0)
 mesh = SubResource("PlaneMesh_ogxl6")
-skeleton = NodePath("../Character")
+skeleton = NodePath("")
 
-[node name="Character" parent="." instance=ExtResource("1_xchws")]
-max_speed = 3.0
-jump_curve = SubResource("Curve_5m0nr")
+[node name="Bubble" parent="." instance=ExtResource("1_vyvsf")]

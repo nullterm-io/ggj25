@@ -1,7 +1,7 @@
-class_name CharacterController extends Node3D
+class_name CharacterController extends CharacterBody3D
 
 @export var max_radius: float = 3
-@export var max_speed: float = 5
+@export var max_speed: float = 3
 @export var shape_radius: float = 1
 @export var jump_curve: Curve
 @export var jump_force: float = 1
@@ -33,10 +33,10 @@ func _movement(delta: float) -> void:
 		_move_left(delta)
 	elif move > 0:
 		_move_right(delta)
-	
+
 	if Input.is_action_just_pressed("jump"):
 		jump.do()
-  
+
 func _gravity() -> void:
 	var radius = max_radius - jump.get_force() - shape_radius
 	var pos = Common.point_on_circle(radius, angle)
