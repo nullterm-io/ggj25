@@ -17,7 +17,7 @@ extends Node3D
 
 @export var obstacle_scenes: Array[PackedScene]
 
-@onready var _inner_radius = section_template.inner_radius
+@onready var _outer_radius = section_template.outer_radius
 @onready var _segment_length = (section_template.outer_radius - section_template.inner_radius)
 
 var _elapsed_distance := 0.0
@@ -91,8 +91,8 @@ func _on_obstacle_spawn_timer_timeout() -> void:
 		var obstacle = scene.instantiate()
 		var segment = _segments[-1]
 		var angle = randf() * TAU
-		var pos = Vector3(cos(angle), sin(angle), 0) * _inner_radius
+		var pos = Vector3(cos(angle), sin(angle), 0) * _outer_radius
 		segment.add_child(obstacle)
 
-		obstacle.position = pos
-		obstacle.global_basis = Basis().rotated(Vector3.FORWARD, angle - PI)
+		obstacle.global_position = segment.global_position + pos
+		obstacle.global_basis = Basis(Quaternion(Vector3.DOWN, pos.normalized()))
