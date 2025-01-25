@@ -171,13 +171,14 @@ obstacle_scenes = Array[PackedScene]([ExtResource("2_dg77c"), ExtResource("3_viv
 enemies_scenes = Array[PackedScene]([ExtResource("6_yaehf")])
 
 [node name="Bubble" parent="." instance=ExtResource("16_2cqfq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.08206, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20204, 0.0539159, 0)
 jump_velocity = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 fov = 90.0
 script = ExtResource("2_efxa6")
+tracking_player = NodePath("../Bubble")
 
 [node name="NoiseShake" type="Node" parent="Camera3D"]
 script = ExtResource("3_dg77c")
