@@ -39,11 +39,6 @@ func _movement(delta: float) -> void:
   
 func _gravity() -> void:
 	var radius = max_radius - jump.get_force() - shape_radius
-	var pos = _point_on_circle(radius, angle)
+	var pos = Common.point_on_circle(radius, angle)
 	position.x = pos.x
 	position.y = pos.y
-  
-func _point_on_circle(radius: float, rad: float) -> Vector2:
-	var x = radius * cos(rad)
-	var y = radius * sin(rad)
-	return Vector2(x, y)
