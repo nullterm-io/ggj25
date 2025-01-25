@@ -26,6 +26,7 @@ var _segments: Array = []
 
 func _ready():
 	assert(section_template)
+	assert(_segment_length > 0)
 
 	_segments.append(section_template.duplicate())
 	add_child(_segments[-1])
