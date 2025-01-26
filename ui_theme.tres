@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b1quvbq8xom2"]
+
+[ext_resource type="FontFile" uid="uid://baqe4k5bw03lw" path="res://assets/fonts/madscrwl.ttf" id="1_touxu"]
+
+[resource]
+Button/fonts/font = ExtResource("1_touxu")
+Label/fonts/font = ExtResource("1_touxu")

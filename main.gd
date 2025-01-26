@@ -1,7 +1,6 @@
-extends Control
+extends Node
+
+@onready var _game_over = $UI/GameOver
 
 func _ready() -> void:
-	_load_readme()
-
-func _load_readme():
-	$ReadMe.display_file("res://README.md")
+	_game_over.visible = false

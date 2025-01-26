@@ -1,44 +1,53 @@
-[gd_scene load_steps=2 format=3 uid="uid://2cnhdbntjj75"]
+[gd_scene load_steps=3 format=3 uid="uid://2cnhdbntjj75"]
 
+[ext_resource type="Theme" uid="uid://b1quvbq8xom2" path="res://ui_theme.tres" id="1_wqhvx"]
 [ext_resource type="Script" uid="uid://doowuwnl7c4f3" path="res://scripts/ui/game_over.gd" id="1_xeevv"]
 
-[node name="GameOver" type="CanvasLayer"]
-visible = false
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wqhvx")
 script = ExtResource("1_xeevv")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 528.0
-offset_top = 139.0
-offset_right = -537.0
-offset_bottom = -486.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -29.0
+offset_right = 43.5
+offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
 text = "Game Over"
 
-[node name="Play" type="Button" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 480.0
-offset_top = 186.0
-offset_right = -595.0
-offset_bottom = -431.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
 text = "Play"
 
-[node name="Quit" type="Button" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 591.0
-offset_top = 188.0
-offset_right = -480.0
-offset_bottom = -429.0
+[node name="Quit" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
 text = "Quit"
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

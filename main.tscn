@@ -1,21 +1,14 @@
-[gd_scene load_steps=42 format=3 uid="uid://br4drfrtg214t"]
+[gd_scene load_steps=29 format=3 uid="uid://br4drfrtg214t"]
 
 [ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ddu6t7qlafpcn" path="res://scenes/level.tscn" id="1_kek77"]
-[ext_resource type="Script" uid="uid://dg04y7w1hivxh" path="res://addons/markdownlabel/markdownlabel.gd" id="2_5vw27"]
 [ext_resource type="PackedScene" uid="uid://s6me3k5y07ok" path="res://scenes/props/parts/square_crystal.tscn" id="2_dg77c"]
 [ext_resource type="Script" uid="uid://iehobv84byc8" path="res://scripts/camera/camera.gd" id="2_efxa6"]
 [ext_resource type="Script" uid="uid://bauebmivwi3up" path="res://scripts/effects/noise_shake.gd" id="3_dg77c"]
-[ext_resource type="Script" uid="uid://ccj0i7dop1bxm" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://bpfdnq2qyfol" path="res://scenes/props/parts/taller_crystal.tscn" id="3_vivmo"]
 [ext_resource type="PackedScene" uid="uid://vmpid0g1e1ku" path="res://scenes/props/parts/tall_crystal.tscn" id="4_2cqfq"]
-[ext_resource type="Script" uid="uid://5jol0dl8p1eh" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_4c57u"]
-[ext_resource type="Script" uid="uid://cqyn0ifcurywd" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_efxa6"]
 [ext_resource type="PackedScene" uid="uid://ditf0jo254fgr" path="res://scenes/props/parts/triangle_crystal.tscn" id="5_yaehf"]
-[ext_resource type="Script" uid="uid://brk4auxrpli3h" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_dg77c"]
 [ext_resource type="PackedScene" uid="uid://dmdubbdp3m2m4" path="res://scenes/props/ai_virus.tscn" id="6_yaehf"]
-[ext_resource type="Script" uid="uid://7taosnlfs16b" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_ycdy4"]
-[ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="10_074og"]
 [ext_resource type="Script" uid="uid://titqj0qgp0bc" path="res://scripts/camera/camera_follower.gd" id="10_d13ii"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
@@ -102,92 +95,45 @@ material = SubResource("StandardMaterial3D_f1207")
 radius = 0.2
 height = 0.4
 
-[sub_resource type="Resource" id="Resource_vivmo"]
-resource_local_to_scene = true
-script = ExtResource("3_kek77")
-font_size = 2.285
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
+[node name="Main" type="Node"]
+script = ExtResource("1_ig7tw")
 
-[sub_resource type="Resource" id="Resource_2cqfq"]
-resource_local_to_scene = true
-script = ExtResource("4_4c57u")
-font_size = 1.714
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_yaehf"]
-resource_local_to_scene = true
-script = ExtResource("5_efxa6")
-font_size = 1.428
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_074og"]
-resource_local_to_scene = true
-script = ExtResource("6_dg77c")
-font_size = 1.142
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_cegan"]
-resource_local_to_scene = true
-script = ExtResource("7_ycdy4")
-font_size = 1.0
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_82xsv"]
-resource_local_to_scene = true
-script = ExtResource("8_w48qg")
-font_size = 0.857
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[node name="WorldEnvironment" type="WorldEnvironment"]
+[node name="World" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cegan")
 camera_attributes = SubResource("CameraAttributesPractical_82xsv")
 compositor = SubResource("Compositor_getpj")
 
-[node name="Level" parent="." instance=ExtResource("1_kek77")]
-pipe_length = 20
+[node name="Level" parent="World" instance=ExtResource("1_kek77")]
 angle_change_dist = 1
 max_offset = 0.3
 scroll_speed = 6.5
 obstacle_scenes = Array[PackedScene]([ExtResource("2_dg77c"), ExtResource("3_vivmo"), ExtResource("4_2cqfq"), ExtResource("5_yaehf")])
 enemies_scenes = Array[PackedScene]([ExtResource("6_yaehf")])
 
-[node name="Bubble" parent="." instance=ExtResource("16_2cqfq")]
+[node name="Bubble" parent="World" instance=ExtResource("16_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20204, 0.0539159, 0)
 slide_velocity = 5.0
 jump_velocity = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 fov = 90.0
 script = ExtResource("2_efxa6")
 tracking_player = NodePath("../Bubble")
 
-[node name="NoiseShake" type="Node" parent="Camera3D"]
+[node name="NoiseShake" type="Node" parent="World/Camera3D"]
 script = ExtResource("3_dg77c")
+
+[node name="Music" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("19_getpj")
+volume_db = -18.0
+autoplay = true
+
+[node name="HeartBeat" type="AudioStreamPlayer" parent="World"]
+stream = ExtResource("19_cegan")
+volume_db = -19.378
+autoplay = true
+script = ExtResource("21_getpj")
 
 [node name="Particles" type="Node3D" parent="."]
 script = ExtResource("10_d13ii")
@@ -209,8 +155,7 @@ trail_lifetime = 0.57
 process_material = SubResource("ParticleProcessMaterial_1u8w0")
 draw_pass_1 = SubResource("SphereMesh_lswn8")
 
-[node name="IntroScreen" type="MarginContainer" parent="."]
-visible = false
+[node name="UI" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -220,29 +165,6 @@ theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
-script = ExtResource("1_ig7tw")
 
-[node name="ReadMe" type="RichTextLabel" parent="IntroScreen"]
-clip_contents = false
+[node name="GameOver" parent="UI" instance=ExtResource("19_ryguw")]
 layout_mode = 2
-bbcode_enabled = true
-script = ExtResource("2_5vw27")
-h1 = SubResource("Resource_vivmo")
-h2 = SubResource("Resource_2cqfq")
-h3 = SubResource("Resource_yaehf")
-h4 = SubResource("Resource_074og")
-h5 = SubResource("Resource_cegan")
-h6 = SubResource("Resource_82xsv")
-
-[node name="GameOver" parent="." instance=ExtResource("19_ryguw")]
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_getpj")
-volume_db = -18.0
-autoplay = true
-
-[node name="HeartBeat" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_cegan")
-volume_db = -19.378
-autoplay = true
-script = ExtResource("21_getpj")
