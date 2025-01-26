@@ -21,6 +21,12 @@ extends Node3D
 ## Movement speed along the path
 @export var scroll_speed = 2.5
 
+## How much the scroll speed increases over a second
+@export var scroll_speed_increase_per_s = 0.05
+
+## Maximum scroll speed which we don't go past
+@export var max_scroll_speed = 8.0
+
 ## Level section template node
 @export var section_template: Node3D
 
@@ -78,6 +84,9 @@ func _process(delta: float) -> void:
 	_angle = lerp(_angle, _target_angle, 0.01)
 	if _obstacles_gen.sorted_positions.is_empty():
 		_obstacles_gen.try_gen_positions()
+		
+	scroll_speed += scroll_speed_increase_per_s * delta
+	scroll_speed = min(scroll_speed, max_scroll_speed)
 
 func _update_angle(delta: float) -> void:
 	_angle_change_distance += scroll_speed * delta
@@ -162,6 +171,7 @@ func _spawn_enemy() -> void:
 	enemy.set_parent(segment)
 	enemy.reset_position()
 	add_child(enemy)
+
 
 func _spawn_obstacle_section() -> void:
 	var section = obstacle_section_template.duplicate()
