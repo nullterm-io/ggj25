@@ -9,6 +9,12 @@ extends Node3D
 ## Distance after which the curvature angle changes
 @export var angle_change_dist = 100
 
+## Distance after which obstacle sections are generated
+@export var obstacle_section_dist: float = 100
+
+## Normal deviation factor for obstacle sections distance
+@export var obstacle_section_dist_dev: float = 0.5
+
 ## Maximum random offset between segments
 @export var max_offset = 0.08
 
@@ -17,6 +23,8 @@ extends Node3D
 
 ## Level section template node
 @export var section_template: Node3D
+
+@export var obstacle_section_template: Node3D
 
 @export var obstacle_scenes: Array[PackedScene]
 @export var enemies_scenes: Array[PackedScene]
@@ -27,11 +35,13 @@ extends Node3D
 @onready var _segment_length = (section_template.outer_radius - section_template.inner_radius)
 @onready var _pipe = $Pipe
 
-var _elapsed_distance := 0.0
+var _dist_to_obstacle_section := 0.0
+var _angle_change_distance := 0.0
 var _angle := 0.0
 var _target_angle := 0.0
 var _segments: Array[Node] = []
 var _obstacles_gen: ObstaclesGen
+var _directions: Array[int] = [1, -1]
 
 
 var _obstacle_types: Array[Common.ObstacleType] = [
@@ -41,20 +51,23 @@ var _obstacle_types: Array[Common.ObstacleType] = [
 
 func _ready():
 	assert(section_template)
+	assert(obstacle_section_template)
 	assert(_segment_length > 0)
 
 	_segments.append(section_template.duplicate())
 	_pipe.add_child(_segments[-1])
 
 	_obstacles_gen = ObstaclesGen.new(_inner_radius, 5)
-	# This is done only to make invisible the template torus in the scene
-	# It is used to generate new ones as an example one
+
 	section_template.visible = false
+	obstacle_section_template.visible = false
+
+	_reset_obstacle_section_distance()
 
 func _physics_process(delta: float) -> void:
-
 	_update_angle(delta)
 	_update_sections(delta)
+	_update_obstacle_sections(delta)
 
 func _process(delta: float) -> void:
 	_update_position(delta)
@@ -63,10 +76,10 @@ func _process(delta: float) -> void:
 		_obstacles_gen.try_gen_positions()
 
 func _update_angle(delta: float) -> void:
-	_elapsed_distance += scroll_speed * delta
-	if _elapsed_distance >= angle_change_dist:
+	_angle_change_distance += scroll_speed * delta
+	if _angle_change_distance >= angle_change_dist:
 		_target_angle = randf() * TAU
-		_elapsed_distance -= angle_change_dist
+		_angle_change_distance -= angle_change_dist
 
 func _update_sections(delta: float) -> void:
 	var segments_to_erase := 0
@@ -100,6 +113,12 @@ func _update_sections(delta: float) -> void:
 		_segments.pop_front().queue_free()
 		segments_to_erase -= 1
 
+func _update_obstacle_sections(_delta: float):
+	_dist_to_obstacle_section -= _segment_length
+	if _dist_to_obstacle_section <= 0:
+		_spawn_obstacle_section()
+		_reset_obstacle_section_distance()
+
 func _update_position(_delta: float) -> void:
 	var zero_segment_index := int(clearance_dist / _segment_length) + 1
 	if zero_segment_index < len(_segments):
@@ -111,7 +130,7 @@ func _on_obstacle_spawn_timer_timeout() -> void:
 
 	match _obstacle_types.pick_random():
 		Common.ObstacleType.ENEMY:
-			_enemy_spawn()
+			_spawn_enemy()
 		Common.ObstacleType.OBSTACLE:
 			_spawn_obstacle()
 
@@ -129,8 +148,7 @@ func _spawn_obstacle() -> void:
 	obstacle.global_position = segment.global_position + pos
 	obstacle.global_basis = Basis(Quaternion(Vector3.DOWN, pos.normalized()))
 
-var _directions: Array[int] = [1, -1]
-func _enemy_spawn() -> void:
+func _spawn_enemy() -> void:
 	assert(enemies_scenes.size() > 0)
 	assert(_segments.size() > 0)
 	var segment := _segments[-1]
@@ -140,3 +158,14 @@ func _enemy_spawn() -> void:
 	enemy.set_parent(segment)
 	enemy.reset_position()
 	add_child(enemy)
+
+func _spawn_obstacle_section() -> void:
+	var section = obstacle_section_template.duplicate()
+	var segment = _segments[-1]
+	segment.add_child(section)
+	section.basis = Basis().rotated(Vector3.RIGHT, PI / 2)
+	section.visible = true
+
+func _reset_obstacle_section_distance() -> void:
+	_dist_to_obstacle_section = randfn(obstacle_section_dist, obstacle_section_dist_dev)
+	print('Next obstacle section in %.1fm' % _dist_to_obstacle_section)
