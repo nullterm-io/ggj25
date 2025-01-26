@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://br4drfrtg214t"]
+[gd_scene load_steps=42 format=3 uid="uid://br4drfrtg214t"]
 
 [ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ddu6t7qlafpcn" path="res://scenes/level.tscn" id="1_kek77"]
@@ -17,11 +17,12 @@
 [ext_resource type="Script" uid="uid://7taosnlfs16b" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_ycdy4"]
 [ext_resource type="Script" uid="uid://dm8sdt8bsdgn8" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_w48qg"]
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="10_074og"]
+[ext_resource type="Script" uid="uid://titqj0qgp0bc" path="res://scripts/camera/camera_follower.gd" id="10_d13ii"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://dtitu3xn328a6" path="res://assets/sfx/heart_beat.ogg" id="19_cegan"]
 [ext_resource type="AudioStream" uid="uid://cwufit28nksws" path="res://assets/music/main_theme.ogg" id="19_getpj"]
 [ext_resource type="PackedScene" uid="uid://2cnhdbntjj75" path="res://scenes/game_over.tscn" id="19_ryguw"]
-[ext_resource type="Script" path="res://scripts/hart_beat.gd" id="21_getpj"]
+[ext_resource type="Script" uid="uid://bxww3vs403gsx" path="res://scripts/hart_beat.gd" id="21_getpj"]
 
 [sub_resource type="Sky" id="Sky_7rgt5"]
 
@@ -74,14 +75,14 @@ curve = SubResource("Curve_d13ii")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1u8w0"]
 lifetime_randomness = 0.25
-emission_shape_scale = Vector3(10, 10, 20)
+emission_shape_scale = Vector3(3, 3, 3)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 inherit_velocity_ratio = -1.375
 direction = Vector3(1, 1, 100)
 spread = 5.0
 initial_velocity_min = 10.0
-initial_velocity_max = 100.0
+initial_velocity_max = 40.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.2
 scale_max = 0.75
@@ -188,17 +189,20 @@ tracking_player = NodePath("../Bubble")
 [node name="NoiseShake" type="Node" parent="Camera3D"]
 script = ExtResource("3_dg77c")
 
-[node name="RedBloodParticles" type="GPUParticles3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.69468, 0, -23.4485)
-amount = 300
+[node name="Particles" type="Node3D" parent="."]
+script = ExtResource("10_d13ii")
+
+[node name="RedBloodParticles" type="GPUParticles3D" parent="Particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.31237)
+amount = 100
 randomness = 1.0
 local_coords = true
 trail_lifetime = 0.57
 process_material = SubResource("ParticleProcessMaterial_1u8w0")
 draw_pass_1 = SubResource("SphereMesh_0odxb")
 
-[node name="WhiteBloodParticles" type="GPUParticles3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38935, 0, -46.8969)
+[node name="WhiteBloodParticles" type="GPUParticles3D" parent="Particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.31237)
 amount = 20
 randomness = 1.0
 trail_lifetime = 0.57
