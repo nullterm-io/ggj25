@@ -27,7 +27,9 @@ func _move(target_position: Vector3) -> void:
 	var distance = global_transform.origin.distance_to(target_position)
 	var collision = move_and_collide(dir * distance)
 	if collision:
-		print("Collides")
+		var main = get_node("/root/Main")
+		main.game_over()
+		
 	global_transform.origin = target_position
 	
 func set_parent(parent: Node3D) -> void:
