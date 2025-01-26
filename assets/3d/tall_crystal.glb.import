@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/tall_crystal.glb-20ecb2c448e061fdcc71cfd57772
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="Obstacle"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

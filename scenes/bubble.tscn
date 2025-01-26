@@ -24,7 +24,7 @@ emission_texture = ExtResource("3_8ycye")
 normal_enabled = true
 normal_texture = ExtResource("4_6jlkr")
 
-[node name="Bubble" instance=ExtResource("1_2vdav")]
+[node name="Bubble" groups=["players"] instance=ExtResource("1_2vdav")]
 collision_layer = 3
 collision_mask = 3
 
