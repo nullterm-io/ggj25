@@ -22,7 +22,7 @@ func set_pitch(value: float) -> void:
 	value = clamp(value, 0.5, MAX_PITCH)
 	if _pitch == value:
 		return
-	print("Setting pitch to: ", value)
+	# print("Setting pitch to: ", value)
 	_pitch = value
 	_update_pitch()
 
