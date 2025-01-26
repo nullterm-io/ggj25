@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvexxy3e8ok2m"]
+
+[ext_resource type="PackedScene" uid="uid://i0ofmymed3g3" path="res://scenes/bacteriophage_model.tscn" id="2_qpxyw"]
+[ext_resource type="Script" uid="uid://w8wyup1blls" path="res://scripts/ai/ai.gd" id="2_yvnvv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_knb2b"]
+radius = 0.361077
+height = 1.58317
+
+[node name="Bacteriophage" type="CharacterBody3D"]
+script = ExtResource("2_yvnvv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730523, 0)
+shape = SubResource("CapsuleShape3D_knb2b")
+
+[node name="Model" parent="." instance=ExtResource("2_qpxyw")]

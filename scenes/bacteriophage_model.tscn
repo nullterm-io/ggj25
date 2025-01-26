@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://i0ofmymed3g3"]
+
+[ext_resource type="PackedScene" uid="uid://cavjsjgpcbdw3" path="res://assets/3d/WalkingDude.glb" id="1_w87gm"]
+[ext_resource type="Texture2D" uid="uid://dokhotrjwvful" path="res://assets/materials/WalkingDudeHeadLowPoly_DefaultMaterial_BaseMap.png" id="2_652rv"]
+[ext_resource type="Texture2D" uid="uid://dxyw81kyrgp2r" path="res://assets/materials/WalkingDudeHeadLowPoly_DefaultMaterial_Emissive.png" id="3_xr1v6"]
+[ext_resource type="Texture2D" uid="uid://dhoqmwhlnfsdt" path="res://assets/materials/WalkingDudeHeadLowPoly_DefaultMaterial_Normal.png" id="4_xcvpn"]
+[ext_resource type="Texture2D" uid="uid://i0x8cw5har1x" path="res://assets/materials/WalkingDudeHeadLowPoly_DefaultMaterial_MaskMap.png" id="5_yv4a7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ncld3"]
+resource_name = "Material.007"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+albedo_texture = ExtResource("2_652rv")
+roughness_texture = ExtResource("5_yv4a7")
+emission_enabled = true
+emission_energy_multiplier = 6.62
+emission_texture = ExtResource("3_xr1v6")
+normal_enabled = true
+normal_texture = ExtResource("4_xcvpn")
+
+[node name="BacteriophageModel" instance=ExtResource("1_w87gm")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/3/rotation = Quaternion(-0.260249, 0.00692516, -0.397811, 0.879755)
+bones/4/rotation = Quaternion(0.569312, 0.797276, -0.192786, 0.0553884)
+bones/5/rotation = Quaternion(-0.271843, 0.872243, -0.166325, 0.370985)
+bones/6/rotation = Quaternion(-0.228622, -0.249734, -0.810409, 0.478124)
+bones/7/rotation = Quaternion(0.230515, -0.164118, -0.236025, 0.929634)
+bones/8/rotation = Quaternion(0.583786, 0.0704709, -0.606093, 0.53561)
+bones/9/rotation = Quaternion(-0.343074, 0.84687, 0.360717, 0.187068)
+bones/10/rotation = Quaternion(0.127965, -0.591843, 0.523918, -0.599046)
+
+[node name="Cylinder" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ncld3")
