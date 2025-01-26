@@ -60,7 +60,11 @@ func _ready():
 	_obstacles_gen = ObstaclesGen.new(_inner_radius, 5)
 
 	section_template.visible = false
+
+	# Hide and disable the obstacle section template node, for not interfering
+	# with the boundary node
 	obstacle_section_template.visible = false
+	obstacle_section_template.use_collision = false
 
 	_reset_obstacle_section_distance()
 
@@ -165,6 +169,7 @@ func _spawn_obstacle_section() -> void:
 	segment.add_child(section)
 	section.basis = Basis().rotated(Vector3.RIGHT, PI / 2)
 	section.visible = true
+	section.use_collision = true
 
 func _reset_obstacle_section_distance() -> void:
 	_dist_to_obstacle_section = randfn(obstacle_section_dist, obstacle_section_dist_dev)

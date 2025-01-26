@@ -8,6 +8,8 @@ metallic_specular = 0.0
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("section_template", "obstacle_section_template")]
 script = ExtResource("1_2q6dc")
+obstacle_section_dist = 50.0
+obstacle_section_dist_dev = 10.0
 section_template = NodePath("Segment")
 obstacle_section_template = NodePath("ThrombusSegment")
 
@@ -43,6 +45,7 @@ sides = 32
 material = SubResource("StandardMaterial3D_2q6dc")
 
 [node name="ThrombusSegment" type="CSGCombiner3D" parent="."]
+use_collision = true
 collision_layer = 2
 collision_mask = 0
 

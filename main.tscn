@@ -113,7 +113,7 @@ enemies_scenes = Array[PackedScene]([ExtResource("6_yaehf")])
 [node name="Bubble" parent="World" instance=ExtResource("16_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20204, 0.0539159, 0)
 slide_velocity = 5.0
-jump_velocity = 5.0
+jump_velocity = 4.5
 
 [node name="Camera3D" type="Camera3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
