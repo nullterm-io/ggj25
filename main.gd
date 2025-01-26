@@ -1,10 +1,10 @@
 extends Node
 
-@onready var _game_over = $UI/GameOver
-
 func _ready() -> void:
-	_game_over.visible = false
+	$UI/GameOver.visible = false
+	get_tree().paused = false
+	Game.game_over.connect(_game_over)
 
-func game_over() -> void:
-	if _game_over:
-		_game_over.visible = true
+func _game_over() -> void:
+	get_tree().paused = true
+	$UI/GameOver.visible = true
