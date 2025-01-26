@@ -3,6 +3,9 @@ class_name IdleAnimation extends Node
 @export var skeleton: Skeleton3D
 @export var amplitude := 2.8
 
+## Make it higher to make it less roundy
+@export var offset_delta := 3.0
+
 var _elapsed_time := 0.0
 var _bones: Array[Vector3] = []
 var _directions: Array[Vector3] = []
@@ -18,5 +21,5 @@ func _process(delta: float) -> void:
 	for i in range(skeleton.get_bone_count()):
 		var bone := _bones[i]
 		var direction := _directions[i]
-		var offset := bone.lerp(direction * sin(i + _elapsed_time) * amplitude, delta * 9.0)
+		var offset := bone.lerp(direction * sin(i + _elapsed_time) * amplitude, delta * offset_delta)
 		skeleton.set_bone_pose_position(i, offset)

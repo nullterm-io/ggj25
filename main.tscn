@@ -20,8 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
 [ext_resource type="AudioStream" uid="uid://dtitu3xn328a6" path="res://assets/sfx/heart_beat.ogg" id="19_cegan"]
 [ext_resource type="AudioStream" uid="uid://cwufit28nksws" path="res://assets/music/main_theme.ogg" id="19_getpj"]
-[ext_resource type="PackedScene" path="res://scenes/game_over.tscn" id="19_ryguw"]
-[ext_resource type="Script" uid="uid://bxww3vs403gsx" path="res://scripts/hart_beat.gd" id="21_getpj"]
+[ext_resource type="PackedScene" uid="uid://2cnhdbntjj75" path="res://scenes/game_over.tscn" id="19_ryguw"]
+[ext_resource type="Script" path="res://scripts/hart_beat.gd" id="21_getpj"]
 
 [sub_resource type="Sky" id="Sky_7rgt5"]
 
