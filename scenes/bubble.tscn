@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b322uyw1p565i"]
+[gd_scene load_steps=5 format=3 uid="uid://b322uyw1p565i"]
 
 [ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="1_2vdav"]
+[ext_resource type="Script" path="res://scripts/character/idle_animation.gd" id="2_pm753"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pm753"]
 radius = 1.0
@@ -10,13 +11,14 @@ transparency = 1
 albedo_color = Color(0.686275, 1, 1, 0.184314)
 
 [node name="Bubble" instance=ExtResource("1_2vdav")]
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 shape = SubResource("SphereShape3D_pm753")
 
 [node name="Bubble" parent="Armature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_pm753")
+
+[node name="IdleAnimation" type="Node" parent="." index="2" node_paths=PackedStringArray("skeleton")]
+script = ExtResource("2_pm753")
+skeleton = NodePath("../Armature/Skeleton3D")
+metadata/_custom_type_script = ExtResource("2_pm753")
