@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://br4drfrtg214t"]
+[gd_scene load_steps=32 format=3 uid="uid://br4drfrtg214t"]
 
 [ext_resource type="Script" uid="uid://bfd6xl8te5os7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ddu6t7qlafpcn" path="res://scenes/level.tscn" id="1_kek77"]
@@ -13,6 +13,8 @@
 [ext_resource type="Material" uid="uid://ctj4wjxi4prxd" path="res://assets/materials/blood_particle_mat.tres" id="10_074og"]
 [ext_resource type="Script" uid="uid://titqj0qgp0bc" path="res://scripts/camera/camera_follower.gd" id="10_d13ii"]
 [ext_resource type="PackedScene" uid="uid://b322uyw1p565i" path="res://scenes/bubble.tscn" id="16_2cqfq"]
+[ext_resource type="Script" uid="uid://bh64me4uhf8w3" path="res://scripts/ui/hud.gd" id="18_074og"]
+[ext_resource type="Theme" uid="uid://b1quvbq8xom2" path="res://ui_theme.tres" id="18_cegan"]
 [ext_resource type="AudioStream" uid="uid://dtitu3xn328a6" path="res://assets/sfx/heart_beat.ogg" id="19_cegan"]
 [ext_resource type="AudioStream" uid="uid://cwufit28nksws" path="res://assets/music/main_theme.ogg" id="19_getpj"]
 [ext_resource type="PackedScene" uid="uid://2cnhdbntjj75" path="res://scenes/game_over.tscn" id="19_ryguw"]
@@ -179,3 +181,28 @@ theme_override_constants/margin_bottom = 20
 [node name="GameOver" parent="UI" instance=ExtResource("19_ryguw")]
 process_mode = 2
 layout_mode = 2
+
+[node name="HUD" type="Control" parent="UI"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("18_cegan")
+script = ExtResource("18_074og")
+
+[node name="Box" type="VBoxContainer" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.5
+offset_right = 25.5
+offset_bottom = 42.0
+grow_horizontal = 2
+
+[node name="Score" type="Label" parent="UI/HUD/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "000"
+horizontal_alignment = 1
+uppercase = true
