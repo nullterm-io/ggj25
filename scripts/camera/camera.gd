@@ -10,3 +10,5 @@ func _process(delta: float) -> void:
 	var tgt_qtr = Quaternion(Vector3.UP, player.up_direction).normalized()
 	if not tgt_qtr.is_equal_approx(cur_qtr):
 		basis = Basis(cur_qtr.slerp(tgt_qtr, rotation_decay * delta))
+		
+	transform.origin = player.up_direction + Vector3(0, 0, 3)

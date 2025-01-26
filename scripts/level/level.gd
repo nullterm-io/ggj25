@@ -46,7 +46,7 @@ var _directions: Array[int] = [1, -1]
 
 var _obstacle_types: Array[Common.ObstacleType] = [
 	Common.ObstacleType.ENEMY,
-	Common.ObstacleType.OBSTACLE
+	Common.ObstacleType.OBSTACLE,
 ]
 
 func _ready():

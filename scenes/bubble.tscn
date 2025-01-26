@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b322uyw1p565i"]
 
 [ext_resource type="PackedScene" uid="uid://dgu64va67db7i" path="res://assets/3d/bubble.glb" id="1_2vdav"]
-[ext_resource type="Script" uid="uid://dbwdqecfx64e7" path="res://scripts/character/idle_animation.gd" id="2_pm753"]
+[ext_resource type="Script" uid="uid://e77ibnkueqwy" path="res://scripts/character/idle_animation.gd" id="2_pm753"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pm753"]
 radius = 1.0
